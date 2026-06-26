@@ -1,0 +1,312 @@
+/* --- VARIABLES --- */
+:root {
+    --verde: #0F172A;
+    --morado: #8b5cf6;
+    --morado-hover: #7c3aed;
+    --blanco: #ffffff;
+    --gris-fondo: #0F172A;
+    --borde: #e2e8f0;
+      
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--gris-fondo);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.detalle-principal {
+    width: 95%;
+    max-width: 1100px; /* Ancho máximo en PC */
+    margin: 30px auto;
+    background: var(--blanco);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column; /* Por defecto para móvil */
+}
+
+/* --- ENCABEZADO (TITULO) --- */
+.detalle-principal h1 {
+    background-color: var(--verde);
+    color: white !important;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+/* --- CONTENEDOR DE INFO INTUITIVA --- */
+.header-info-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    background: #ffffff;
+    margin-top: -30px; /* Sube un poco para entrar en contacto con el encabezado */
+    border-radius: 15px;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- CADA TARJETITA (BADGE) --- */
+.info-badge {
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.info-badge:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-color: var(--morado);
+}
+
+/* --- ICONOS DENTRO DEL BADGE --- */
+.badge-icon {
+    width: 45px;
+    height: 45px;
+    background: #edf2f7;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: #4a5568;
+}
+
+.badge-purple { background: #f5f3ff; color: #8b5cf6; }
+.badge-green { background: #f0fdf4; color: #083300; }
+
+/* --- TEXTOS DENTRO DEL BADGE --- */
+.badge-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-text .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #a0aec0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.badge-text .value {
+    font-size: 0.95rem;
+    color: #2d3748;
+    font-weight: 600;
+}
+
+/* Ajuste para que los botones de aplicar no se peguen */
+.acciones-rapidas {
+    margin-top: 10px;
+    padding: 20px;
+}
+
+/* --- CUERPO DEL DETALLE --- */
+/* Usamos Grid para separar contenido de sidebar en PC */
+.container-detalle-layout {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+    gap: 20px;
+    padding: 30px;
+}
+
+/* Datos rápidos debajo del título */
+.info-basica {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--borde);
+}
+
+.info-basica p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #555;
+}
+
+.info-basica i { color: var(--morado); }
+
+/* --- BOTONES DE ACCIÓN --- */
+.acciones-rapidas {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn-favorito, .btn-aplicar-oferta {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    text-transform: uppercase;
+}
+
+.btn-favorito {
+    background: #f0fdf4;
+    color: var(--verde);
+    border: 1px solid #cce9d2;
+}
+
+.btn-aplicar-oferta {
+    background: var(--morado);
+    color: white;
+}
+
+.btn-aplicar-oferta:hover {
+    background: var(--morado-hover);
+    transform: translateY(-2px);
+}
+
+/* --- DISEÑO DE LAS TARJETAS DE DATOS (GRID-DETALLES) --- */
+.grid-detalles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Se adapta al ancho */
+    gap: 15px;
+    margin: 20px 0 40px 0;
+}
+
+.dato {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--borde);
+    display: flex;
+    justify-content: space-between;
+}
+
+.dato strong { color: #666; font-size: 0.9rem; }
+.dato span { color: var(--verde); font-weight: bold; }
+
+/* --- LISTAS --- */
+.descripcion-texto h3 {
+    color: var(--verde);
+    margin-bottom: 10px;
+    border-left: 5px solid var(--morado);
+    padding-left: 10px;
+}
+
+.descripcion-texto ul {
+    list-style: none;
+    padding: 15px 0;
+}
+
+.descripcion-texto li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.descripcion-texto li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: var(--morado);
+    font-weight: bold;
+}
+
+/* --- SIDEBAR (EMPRESA) --- */
+.sidebar-empresa {
+    background: #f1f5f9;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    align-self: start;
+}
+
+.btn-alertas {
+    width: 100%;
+    padding: 12px;
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* Espaciado general para que no esté todo pegado */
+.detalle-vacante {
+    max-width: 800px;
+    padding-left: 10px;
+    padding-right:20px ;
+    line-height: 1.6; /* Aumenta el espacio entre líneas de texto */
+    color: #333;
+}
+
+.titulo-seccion {
+    color: #2e54a5;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-bottom: 1px;
+    border-bottom: 1px solid #eee; /* Una línea más elegante que el <hr> */
+    padding-bottom: 10px;
+}
+
+.info-bloque {
+    margin-bottom: 25px; /* Separa los bloques de Requisitos y Funciones */
+}
+
+.info-bloque h4 {
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.info-bloque ul {
+    list-style: none; /* Quitamos los puntos básicos */
+    padding-left: 0;
+}
+
+.info-bloque li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px; /* Espacio entre cada punto de la lista */
+}
+
+/* Ponemos un check azul pequeñito en lugar del punto negro */
+.info-bloque li::before {
+    content: "•";
+    color: #2e54a5;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* =========================================
+   MEDIA QUERY PARA PC (Pantallas Grandes)
+   ========================================= */
+@media (min-width: 768px) {
+    .container-detalle-layout {
+        grid-template-columns: 2fr 1fr; /* Contenido ancho y sidebar estrecho */
+    }
+
+    .detalle-principal h1 {
+        font-size: 2.5rem;
+    }
+
+    .acciones-rapidas {
+        width: 400px; /* No queremos que los botones sean gigantes en PC */
+    }
+}

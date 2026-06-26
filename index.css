@@ -1,0 +1,227 @@
+/* --- ESTILOS GENERALES --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.card-container {
+    width: 100%;
+    /* Quitamos el max-width de 414px para que crezca en PC */
+    max-width: 1000px; 
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* --- ZONA VERDE (TOP) --- */
+.top-section {
+    background-color: #0F172A; 
+    padding: 60px 20px 100px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.world-icon {
+    max-width: 130px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.marknic-logo {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+}
+.text-white { color: #ffffff; }
+.text-purple { color: #6938dc; }
+
+.curve-divider {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 1;
+}
+.curve-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --- ZONA BLANCA (CONTENIDO) --- */
+.main-content {
+    padding: 20px 40px 60px 40px;
+    flex-grow: 1;
+    z-index: 5;
+    margin-top: -20px;
+    background-color: #ffffff;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* FORMULARIO RESPONSIVO */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.search-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.input-group {
+    position: relative;
+    flex: 1;
+}
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0d3876;
+}
+.input-group input {
+    width: 100%;
+    padding: 16px 15px 16px 45px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #f9f9f9;
+}
+
+.search-button {
+    width: 100%;
+    padding: 18px;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(13, 56, 118, 0.2);
+    cursor: pointer;
+}
+
+/* CATEGORÍAS */
+/* */
+.categories-grid .cat-item {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+    margin-bottom: 5px;
+}
+
+/* Colores  */
+.categories-grid .cat-item.it { background-color: #2e7d32; }
+.categories-grid .cat-item.pasante { background-color: #455a64; }
+.categories-grid .cat-item.electrica { background-color: #2563eb; }
+.categories-grid .cat-item.ventas { background-color: #6b21a8; }
+
+/* Efecto visual al pasar el mouse */
+.categories-grid .cat-item:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* TARJETAS DE EMPLEO */
+.recent-jobs h3 {
+    font-size: 1.2rem;
+    border-bottom: 3px solid #083300;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
+.job-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+    background-color: #ffffff;
+    gap: 15px;
+}
+.job-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.job-info { flex: 1;}
+
+.job-info strong { font-size: 1rem; color: #222; display: block;}
+.job-info p { font-size: 0.9rem; color: #777; margin-top: 4px; line-height: 1.2;}
+.job-badge { font-size: 0.75rem; padding: 6px 12px; border-radius: 8px; font-weight: bold; white-space: nowrap; }
+.bg-new { background: #e8f5e9; color: #2e7d32; }
+.bg-urgent { background: #ffebee; color: #c62828; }
+
+/* FOOTER */
+.info-banner {
+    background: #787272;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+footer {
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    background: #f7f7f7;
+}
+
+/* =========================================
+   MEDIA QUERIES (PARA PC Y TABLETS)
+   ========================================= */
+@media (min-width: 768px) {
+    /* En PC, ponemos los inputs en una sola fila */
+    .search-inputs {
+        flex-direction: row;
+    }
+    
+    .search-form {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .search-button {
+        width: auto;
+        padding: 16px 30px;
+    }
+
+    .main-content {
+        padding: 40px 80px;
+    }
+}
+/* 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - MarkNic</title>
+    <link rel="stylesheet" href="4. style-regis.css">
+</head>
+<body>
+
+    <div class="reg-container">
+        <header class="reg-header">
+            <h1>REGÍSTRATE GRATIS</h1>
+            <p>¿Ya tienes una cuenta? <a href="Iniciar Sesion.html">Haz clic aquí</a></p>
+        </header>
+
+        <form id="registroForm" class="reg-form">
+            
+            <fieldset class="reg-section">
+                <legend>DATOS DE LA CUENTA</legend>
+                <div class="input-group">
+                    <label>Correo Electrónico *</label>
+                    <input type="email" id="regEmail" placeholder="ejemplo@correo.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Contraseña *</label>
+                    <input type="password" id="regPass" placeholder="Mínimo 8 caracteres" required>
+                </div>
+            </fieldset>
+
+            <fieldset class="reg-section">
+                <legend>DATOS GENERALES</legend>
+                <div class="row">
+                    <div class="input-group">
+                        <label>Nombres *</label>
+                        <input type="text" placeholder="Tus nombres" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Apellidos *</label>
+                        <input type="text" placeholder="Tus apellidos" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Género *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="genero" value="F"> Femenino</label>
+                        <label><input type="radio" name="genero" value="M"> Masculino</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="reg-section">
+                <legend>INFORMACIÓN DE CONTACTO</legend>
+                <div class="input-group">
+                    <label>País de Residencia *</label>
+                    <select required>
+                        <option value="">- Seleccione -</option>
+                        <option value="NI">Nicaragua</option>
+                        <option value="CR">Costa Rica</option>
+                        <option value="PA">Panamá</option>
+                        <option value="SV">El Salvador</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Teléfono de contacto *</label>
+                    <input type="tel" placeholder="Ej: +505 8888 8888" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <label><input type="checkbox"> No deseo recibir información promocional</label>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-register" id="btnRegistrar">
+                REGISTRARME
+            </button>
+        </form>
+    </div>
+</body>
+</html>

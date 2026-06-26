@@ -1,0 +1,993 @@
+/* Variables de diseño móvil */
+:root {
+    --primary: #6366f1;
+    --secondary: #4f46e5;
+    --bg: #0F172A;
+    --white: #ffffff;
+    --gray-text: #6b7280;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100vw;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    padding-top: 70px;
+    /* Espacio para el navbar fijo */
+    padding-bottom: 80px;
+    /* Espacio para que el último elemento no choque con el borde */
+    line-height: 1.5;
+    overflow-x: hidden;
+    /* Evita que el sitio se mueva hacia los lados en móvil */
+}
+
+/* Banner de notificación importante */
+.important-banner {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    animation: slideIn 0.5s ease-out;
+}
+
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* Ajuste responsive: si no cabe, el botón baja */
+}
+
+.btn-ver-cita {
+    background: white;
+    color: #6366f1;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Modales y Overlays */
+.modal-overlay,
+.lobby-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    /* Se activa con JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 15px;
+    /* Margen de seguridad para móviles */
+}
+
+.modal-card {
+    background: white;
+    width: 95%;
+    /* Ajuste responsive */
+    max-width: 450px;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.modal-header-green {
+    background: #147904;
+    /* Verde MarkNic */
+    color: white;
+    padding: 30px;
+    font-size: 1.2rem;
+}
+
+.modal-header-green i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.interview-details {
+    background: #f8fafc;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.detail-item {
+    margin: 8px 0;
+    color: #475569;
+    font-weight: 500;
+}
+
+.btn-accept {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-decline {
+    background: #ef4444;
+    margin-left: 10px;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Borde superior naranja para advertencia */
+.warning-border {
+    border-top: 6px solid #f59e0b;
+}
+
+.modal-header-warning {
+    padding: 25px;
+    color: #f59e0b;
+    text-align: center;
+}
+
+.modal-header-warning i {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.modal-footer-warning {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* Ajuste responsive para botones en vertical si es necesario */
+}
+
+/* Botón para arrepentirse y volver */
+.btn-back {
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+    /* Evita que el botón se vea minúsculo */
+}
+
+/* Botón para confirmar que acepta el riesgo */
+.btn-confirm-cancel {
+    background: #dc2626;
+    /* Rojo */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+}
+
+.btn-confirm-cancel:hover {
+    background: #b91c1c;
+}
+
+
+/* Lobby tipo Google Meet */
+.lobby-container {
+    background: #1e293b;
+    color: white;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    /* Asegura que cubra la pantalla en móviles */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.video-preview {
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    border: 2px solid #6366f1;
+}
+
+.btn-join-now {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.marknic-logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
+    text-align: center;
+}
+
+/* Media query para PC (Pantallas grandes) */
+@media (min-width: 768px) {
+    .marknic-logo {
+        font-size: 3.5rem;
+    }
+}
+
+.text-white {
+    color: #f2f3f5;
+}
+
+.text-purple {
+    color: #6366f1;
+}
+
+/* Contenedor-usuario FIJO */
+.Contenedor-usuario {
+    display: flex;
+    position: fixed;
+    justify-content: right;
+    /* Logo a la izquierda, icono-Usuario a la derecha */
+    align-items: center;
+    padding: 10px 15px;
+    /* El 5% evita que se arrincone en pantallas grandes */
+    background-color: #0F172A;
+    border-bottom: 1px solid #0F172A;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #1f2937;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+/* Contenedor principal */
+.user-menu-container {
+    position: relative;
+    /* Importante para que la ventana se alinee aquí */
+    display: flex;
+    align-items: center;
+}
+
+/* ICONO USUARIO */
+.navbar-principal {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 50px;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.categories-grid{
+    display: flex;            /* Activa el modo flexbox */
+    justify-content: center;  /* Centra los botones horizontalmente */
+    flex-wrap: wrap;         /* Si no caben, saltan a la siguiente línea */
+    gap: 15px;               /* Espacio entre los botones */
+    width: 100%;             /* Asegura que ocupe todo el ancho disponible */
+    margin: 20px 0;          /* Espacio arriba y abajo si lo necesitas */
+}
+.categories-grid .cat-item {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content:center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+    margin-bottom: 5px;
+}
+
+/* Colores  */
+.categories-grid .cat-item.it { background-color: #2e7d32; }
+.categories-grid .cat-item.pasante { background-color: #455a64; }
+.categories-grid .cat-item.electrica { background-color: #2563eb; }
+.categories-grid .cat-item.ventas { background-color: #6366f1; }
+
+/* Efecto visual al pasar el mouse */
+.categories-grid .cat-item:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+/* Estilo del circulo de la personita */
+.user-icon {
+    width: 45px;
+    /* Ajuste leve para balancear el header */
+    height: 45px;
+    background-color: #f0f2f5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8b5cf6;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.user-icon:hover {
+    background-color: #0e0e0e;
+}
+
+/* LA VENTANITA */
+.dropdown-window {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 280px;
+    max-width: 90vw;
+    padding: 20px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: 1px solid #e2e8f0;
+}
+
+.dropdown-window::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+}
+
+.main-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    position: fixed;
+    z-index: 100;
+}
+
+/* MOSTRAR AL PASAR EL MOUSE */
+.user-menu-container:hover .dropdown-window {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    animation: fadeInSlide 0.2s ease forwards;
+}
+
+.dropdown-header {
+    font-size: 0.9rem;
+    color: #444;
+    text-align: center;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.btn-ingresar,
+.btn-registrar {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    background-color: #ffffff;
+    color: #0d3876;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+    border: 2px solid #0d3876;
+    /* Restaurado borde original */
+}
+
+.btn-registrar {
+    border-color: #147904;
+    color: #147904;
+}
+
+.btn-registrar:hover {
+    background-color: #147904;
+    /* Ajuste para que se vea la interacción */
+    color: #ffffff;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+.dropdown-list {
+    list-style: none;
+}
+
+.dropdown-list li {
+    padding: 12px 0;
+    color: #555;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.3s;
+}
+
+.dropdown-list li i {
+    font-size: 1.2rem;
+    color: #64748b;
+    width: 25px;
+    text-align: center;
+}
+
+.dropdown-list li:hover {
+    color: #8b5cf6;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+#searchInput:focus {
+    border-color: #147904; /* El azul cian de tu nuevo logo */
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
+
+.btn-search {
+    padding: 12px 25px;
+    background: #147904; /* verde oscuro moderno */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-search:hover {
+    background: #1e293b;
+    transform: translateY(-2px);
+}
+
+/* BUSCADOR Y FILTROS */
+.search-section {
+   background: var(--white);
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    position: relative; /* Necesario para que z-index funcione */
+    z-index: 50; /* Suficiente para estar sobre el dashboard, pero bajo el navbar */
+}
+
+.search-box {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.search-box i {
+    color: var(--gray-text);
+    margin-right: 10px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+}
+
+
+/* ==========================================
+   1. CONTENEDOR DE FILTROS (Scroll Horizontal)
+   ========================================== */
+.mobile-filters {
+    display: flex;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    overflow-x: auto; /* Permite deslizar hacia los lados */
+    padding: 10px 15px;
+    width: 100%;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Deslizamiento suave en iPhone */
+    flex-wrap: wrap; /* Si no caben, saltan a la siguiente línea */
+    position: relative;
+    z-index: 9999;
+
+    overflow: visible; /* Asegura que los menús desplegables no se corten */
+    overflow: visible !important; /* Refuerzo para navegadores que ignoran la primera línea */
+    overflow:visible; /* Refuerzo adicional para navegadores que ignoran las dos primeras líneas */
+}
+
+/* Ocultamos la barra de desplazamiento visual para que se vea limpio */
+.mobile-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-group {
+    position: relative; /* Clave para que el menú caiga debajo de su propio botón */
+    flex-shrink: 0; /* Evita que los botones se aplasten intentando caber todos */
+}
+
+/* ==========================================
+   2. LOS BOTONES (CHIPS)
+   ========================================== */
+.filter-chip {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Blanco casi transparente */
+    color: white;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 18px;
+    border-radius: 12px; /* Bordes bien redondeados */
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between ;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap; /* Impide que el texto del botón se parta en dos líneas */
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease;
+}
+
+.filter-chip:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================
+   3. LOS MENÚS DESPLEGABLES (EFECTO CRISTAL)
+   ========================================== */
+.filter-dropdown {
+    display: none; /* Tu JavaScript lo cambiará a 'flex' o 'block' al tocarlo */
+    position: absolute;
+    top: 115%; /* Aparece justo un poco por debajo del botón */
+    right: 0; /* Esto hace que el menú mida exactamente el mismo ancho que su botón */
+    left: 0;
+    
+    /* El efecto transparente y elegante */
+    background: rgba(15, 23, 42, 0.85); /* Fondo oscuro transparente */
+    backdrop-filter: blur(12px); /* Desenfoca lo que está detrás */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    
+    padding: 12px;
+    min-width: 100px; /* Ancho mínimo para que no se vea aplastado */
+    z-index: 10000; /* Asegura que flote por encima de todo lo demás */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilo de las opciones (labels y checkboxes) */
+.filter-dropdown label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgb(9, 9, 9);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 6px;
+    transition: 0.2s;
+    border-radius: 6px;
+}
+
+.filter-dropdown label:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Damos color a los checkboxes y radios para que combinen con tu app */
+.filter-dropdown input {
+    accent-color: #8b5cf6; /* El color morado de MarkNic */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.dashboard-container {
+    padding: 0 15px;
+    text-align: center;
+    box-shadow: 0 9px 6px -1px rgba(113, 3, 146, 0.1);
+}
+
+.status-card {
+    margin-bottom: 15px;
+    border-top: 4px solid #6366f1;
+}
+
+.stepper {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    /* Mantiene la línea en una sola fila */
+    justify-content: space-between;
+    padding: 40px 0;
+    font-size: 0.8rem;
+    overflow-x: hidden;
+}
+
+/* RESPONSIVE STEPPER */
+@media (max-width: 480px) {
+
+    .mobile-filters {
+        gap: 8px;
+        overflow-x: auto; /* En móviles muy pequeños, que se puedan deslizar */
+        justify-content: flex-start;
+    }
+
+    .filter-chip {
+        flex: 0 0 auto; /* En móvil no obligamos a que se estiren si hay scroll */
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+
+    .line {
+        flex: 0.2;
+    }
+
+    .step {
+        flex: 1;
+    }
+
+    .step span,
+    .btn-step-link {
+        font-size: 9px !important;
+        display: block;
+        line-height: 1.1;
+    }
+
+    .circle {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+}
+
+.step {
+    text-align: center;
+    flex: 1;
+    color: #ccc;
+}
+
+.circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #eee;
+    margin: 0 auto 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.line {
+    flex: 0.5;
+    height: 2px;
+    background: #eee;
+    margin-bottom: 25px;
+    /* Alineado al centro de los círculos */
+}
+
+.step.active {
+    color: #6366f1;
+    font-weight: bold;
+}
+
+.stepcontratado {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.circlecontrat.active {
+    background: #147904;
+    color: white;
+}
+
+.step.active .circle {
+    background: #6366f1;
+    color: white;
+}
+
+.line.active {
+    background: #6366f1;
+}
+
+.alert-banner p {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    font-weight: 500;
+}
+
+.alert-banner button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+/* LISTA DE EMPLEOS */
+.jobs-feed {
+    padding: 0 15px;
+}
+
+.section-title {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--gray-text);
+}
+
+.job-card {
+    background: var(--white);
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.card-header h4 {
+    font-size: 1.1rem;
+    color: #111827;
+    flex: 1;
+    padding-right: 10px;
+}
+
+.company {
+    color: var(--primary);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.location {
+    color: var(--gray-text);
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 12px;
+    box-shadow: 0 9px 6px -1px rgba(113, 3, 146, 0.1);
+}
+
+.tag {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.btn-details {
+    background: #147904;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* BOTÓN FLOTANTE (FAB) */
+.fab-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 900;
+}
+
+.btn-details1 {
+    background: #147904;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.step-button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.step-button:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
+    background-color: #4f46e5;
+}
+
+.step-button.active {
+    animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-blue {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+/* Dropdown de filtros */
+.filter-group {
+    position: relative;
+    flex: 1;
+    display: flex;
+}
+
+.filter-dropdown {
+    display: none;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-width: max-content;
+    margin-top: 5px;
+    position: absolute;
+    z-index: 10;
+}
+
+.filter-dropdown label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.show-dropdown {
+    display: block !important;
+}
+
+.btn-step-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: 9px;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+    font-weight: bold;
+    color: inherit;
+}
+
+.btn-step-link:hover {
+    color: #4f46e5;
+}
+
+.step[data-status="entrevista"] .btn-step-link {
+    color: #147904;
+}
+
+.dashboard-container {
+    color: #f8f5f5;
+}

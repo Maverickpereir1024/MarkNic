@@ -1,0 +1,117 @@
+/* --- ESTILO GENERAL --- */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0F172A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* --- TARJETA DE LOGIN --- */
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px; /* Tamaño ideal para móvil */
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 15px;
+}
+
+.login-title {
+    color: #0d3876; /* El azul oscuro que usamos antes */
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.register-link {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.register-link a {
+    color: #6938dc; /* Verde para resaltar */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- INPUTS --- */
+.input-wrapper {
+    margin-bottom: 20px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: #0d3876; /* Cambia a azul al escribir */
+}
+
+/* --- BOTÓN CON EFECTOS (TRANSITION Y AFTER) --- */
+.btn-login-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #7a7a7a; /* Gris base como la imagen, pero con vida */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* Necesario para el efecto brillo */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Hover: Cambia a verde al pasar el mouse */
+.btn-login-submit:hover {
+    background-color: #6938dc; 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* El efecto "After" de brillo que cruza */
+.btn-login-submit::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+}
+
+.btn-login-submit:hover::after {
+    left: 130%;
+}
+
+/* --- FOOTER --- */
+.login-footer {
+    margin-top: 25px;
+}
+
+.forgot-pass {
+    color: #6938dc;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.forgot-pass:hover {
+    text-decoration: underline;
+}

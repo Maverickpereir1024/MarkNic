@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Nic Reclutamiento</title>
+    <link rel="stylesheet" href="1. Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* ============================
+           PALETA VIAJE / TRAVEL
+           Azul cielo, coral, arena
+        ============================ */
+        :root {
+            --travel-blue:      #6366f1;
+            --travel-sky:       #f9f9f9;
+            --travel-coral:     #2a6a05;
+            --travel-sand:      #F5E6D3;
+            --travel-dark:      #0f172a;
+            --travel-white:     #FFFFFF;
+            --travel-gray:      #6B7280;
+            --travel-light-bg:  #F0F8FF;
+            --travel-card-bg:   #FFFFFF;
+            --travel-success:   #0CAA56;
+            --nav-height:       65px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--travel-dark);
+            padding-top: 70px;
+            padding-bottom: calc(var(--nav-height) + 15px);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ============================
+           TOPBAR
+        ============================ */
+        .Contenedor-usuario {
+            display: flex;
+            position: fixed;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, var(--travel-dark), #0077B6cc);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,180,216,0.2);
+            top: 0; left: 0; right: 0;
+            z-index: 500;
+        }
+
+        .marknic-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color:#6366f1;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+        .text-white  { color: #ffffff; }
+
+        .user-menu-container { position: relative; display: flex; align-items: center; }
+        .user-icon {
+            width: 42px; height: 42px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--travel-sky);
+            cursor: pointer;
+            border: 2px solid rgba(0,180,216,0.4);
+            transition: 0.3s;
+        }
+        .user-icon:hover { background: rgba(0,180,216,0.35); }
+
+        .dropdown-window {
+            display: none;
+            position: absolute;
+            top: 55px; right: 0;
+            width: 260px; max-width: 90vw;
+            padding: 18px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(3,4,94,0.25);
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+        .user-menu-container:hover .dropdown-window { display: block; }
+
+        .dropdown-header {
+            font-size: 0.82rem;
+            color: var(--travel-gray);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .btn-ingresar {
+            width: 100%; padding: 10px;
+            background: var(--travel-blue); color: white;
+            border: none; border-radius: 10px;
+            font-weight: 700; cursor: pointer; margin-bottom: 8px;
+            transition: 0.3s;
+        }
+        .btn-ingresar:hover { background: var(--travel-dark); }
+
+        .btn-registrar {
+            width: 100%; padding: 10px;
+            background: transparent; color: var(--travel-blue);
+            border: 2px solid var(--travel-blue); border-radius: 10px;
+            font-weight: 700; cursor: pointer; margin-bottom: 12px;
+            transition: 0.3s;
+        }
+        .btn-registrar:hover { background: var(--travel-sand); }
+        .divider { border: none; border-top: 1px solid #e5e7eb; margin: 8px 0; }
+        .dropdown-list { list-style: none; }
+        .dropdown-list li {
+            padding: 10px 8px; color: #374151; font-size: 0.9rem;
+            cursor: pointer; border-radius: 8px; display: flex; align-items: center; gap: 10px;
+            transition: 0.2s;
+        }
+        .dropdown-list li:hover { background: var(--travel-light-bg); color: var(--travel-blue); }
+
+        /* ============================
+           BARRA DE BUSQUEDA
+        ============================ */
+        .search-container {
+            width: auto; max-width: 100%;
+            display: flex;
+            gap: 10px;
+            padding: 14px 16px;
+            background: rgba(0,119,182,0.15);
+            margin: 0 0 8px 0;
+        }
+        .search-container input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid rgba(0,180,216,0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-container input::placeholder { color: rgba(255,255,255,0.45); }
+        .search-container input:focus { border-color: var(--travel-sky); background: rgba(255,255,255,0.12); }
+
+        .btn-search {
+            padding: 12px 18px;
+            background: var(--travel-coral);
+            color: white; border: none; border-radius: 12px;
+            font-weight: 700; cursor: pointer; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 6px;
+            transition: 0.3s; white-space: nowrap;
+        }
+        .btn-search:hover { background: #c9851e; transform: translateY(-1px); }
+
+        /* ============================
+           FILTROS
+        ============================ */
+        .mobile-filters {
+            display: flex;
+            gap: 8px;
+            padding: 6px 16px 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .mobile-filters::-webkit-scrollbar { display: none; }
+
+        .filter-group { position: relative; flex-shrink: 0; }
+
+        .filter-chip {
+            background: rgba(0,180,216,0.15);
+            color: var(--travel-sky);
+            font-weight: 600;
+            border: 1px solid rgba(0,180,216,0.35);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+        .filter-chip:hover { background: rgba(0,180,216,0.3); }
+
+        .filter-dropdown {
+            display: none;
+            position: absolute;
+            top: 110%; left: 0;
+            background: rgba(3,4,94,0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,180,216,0.25);
+            border-radius: 12px;
+            padding: 12px;
+            min-width: 160px;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            flex-direction: column; gap: 8px;
+        }
+        .filter-dropdown.show-dropdown { display: flex; }
+        .filter-dropdown label {
+            display: flex; align-items: center; gap: 8px;
+            color: rgba(255,255,255,0.85); font-size: 0.85rem;
+            cursor: pointer; padding: 5px 6px; border-radius: 6px; transition: 0.2s;
+        }
+        .filter-dropdown label:hover { background: rgba(0,180,216,0.2); color: white; }
+        .filter-dropdown input { accent-color: var(--travel-sky); width: 14px; height: 14px; }
+
+        /* ============================
+           CATEGORÍAS
+        ============================ */
+        .categories-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+            padding: 8px 16px 14px;
+        }
+        .cat-item {
+            text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 7px; padding: 10px 16px;
+            border-radius: 20px; font-size: 0.82rem; font-weight: 700;
+            color: white; transition: all 0.3s;
+        }
+        .cat-item.it       { background: linear-gradient(135deg, #0077B6, #00B4D8); }
+        .cat-item.pasante  { background: linear-gradient(135deg, #455a64, #607d8b); }
+        .cat-item.electrica { background: linear-gradient(135deg, #E85D27, #FF8C42); }
+        .cat-item.ventas   { background: linear-gradient(135deg, #0CAA56, #1DBF6A); }
+        .cat-item:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+
+        /* ============================
+           VACANTES (tarjetas desde DB)
+        ============================ */
+        .jobs-feed { padding: 0 14px; }
+        .section-title {
+            font-size: 0.9rem; color: rgba(255,255,255,0.5);
+            margin-bottom: 14px; font-weight: 500;
+        }
+
+        /* Las tarjetas cargadas por JS con JS inline están bien,
+           pero mejoramos las que vienen del template .job-card */
+        .job-card {
+            background: var(--travel-card-bg);
+            padding: 18px; border-radius: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(3,4,94,0.12);
+            border-left: 4px solid var(--travel-sky);
+        }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .card-header h4 { font-size: 1.05rem; color: #111827; flex: 1; padding-right: 10px; }
+        .company { color: var(--travel-blue); font-size: 0.88rem; margin-bottom: 4px; font-weight: 600; }
+        .location { color: var(--travel-gray); font-size: 0.83rem; margin-bottom: 14px; }
+        .card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid #f3f4f6; padding-top: 12px;
+        }
+        .tag { font-size: 0.73rem; color: #9ca3af; }
+
+        .btn-details {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; border: none;
+            padding: 9px 18px; border-radius: 10px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 700;
+            transition: 0.3s; box-shadow: 0 3px 10px rgba(0,119,182,0.3);
+        }
+        .btn-details:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,119,182,0.4); }
+
+        /* ============================
+           SIN RESULTADOS
+        ============================ */
+        #noResults {
+            text-align: center; padding: 30px 20px;
+            color: rgba(255,255,255,0.5); display: none;
+        }
+        #noResults img { opacity: 0.3; margin-bottom: 10px; }
+
+        /* ============================
+           NOTIFICACIÓN DE ENTREVISTA
+        ============================ */
+        .important-banner {
+            background: linear-gradient(90deg, var(--travel-dark), var(--travel-blue));
+            color: white; padding: 14px 16px;
+            border-radius: 12px; margin: 0 14px 14px;
+            box-shadow: 0 4px 15px rgba(0,119,182,0.35);
+            animation: slideIn 0.5s ease-out;
+        }
+        .banner-content {
+            display: flex; justify-content: space-between;
+            align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .btn-ver-cita {
+            background: white; color: var(--travel-blue);
+            border: none; padding: 7px 14px; border-radius: 20px;
+            font-weight: 700; cursor: pointer; font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .btn-ver-cita:hover { background: var(--travel-sand); }
+
+        /* ============================
+           MODAL ENTREVISTA
+        ============================ */
+        .modal-overlay, .lobby-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 15px;
+        }
+        .modal-card {
+            background: white; width: 95%; max-width: 440px;
+            border-radius: 20px; overflow: hidden; text-align: center;
+        }
+        .modal-header-green {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; padding: 28px; font-size: 1.1rem;
+        }
+        .modal-header-green i { font-size: 2.8rem; margin-bottom: 10px; display: block; }
+        .modal-body { padding: 20px; }
+        .modal-footer { display: flex; gap: 10px; padding: 0 20px 20px; justify-content: center; }
+        .interview-details {
+            background: var(--travel-light-bg); margin: 14px 0;
+            padding: 14px; border-radius: 12px; text-align: left;
+        }
+        .detail-item { margin: 7px 0; color: #475569; font-weight: 500; font-size: 0.9rem; }
+        .terms { color: #374151; font-size: 0.9rem; margin-top: 12px; }
+        .btn-accept {
+            background: var(--travel-success); color: white; border: none;
+            padding: 12px 22px; border-radius: 10px; font-weight: 700; cursor: pointer;
+        }
+        .btn-decline {
+            background: #ef4444; color: white; border: none;
+            padding: 12px 22px; border-radius: 10px; font-weight: 700; cursor: pointer;
+        }
+
+        /* ============================
+           LOBBY VIDEOLLAMADA
+        ============================ */
+        .lobby-container {
+            background: #1e293b; color: white; width: 100%;
+            height: 100%; min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .video-preview {
+            width: 100%; max-width: 500px; aspect-ratio: 16/9;
+            background: #000; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 16px 0; border: 2px solid var(--travel-sky);
+        }
+        .controls { display: flex; gap: 14px; margin: 10px 0; }
+        .control-btn {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255,255,255,0.1); color: white;
+            border: 2px solid rgba(255,255,255,0.2); cursor: pointer;
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .control-btn:hover { background: rgba(255,255,255,0.2); }
+        .btn-join-now {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; border: none; padding: 14px 36px;
+            border-radius: 30px; font-size: 1rem; font-weight: 700;
+            margin-top: 16px; cursor: pointer;
+        }
+
+        /* ============================
+           MIS POSTULACIONES
+        ============================ */
+        .dashboard-container {
+            padding: 0 14px 16px; color: white;
+        }
+        .dashboard-container h1 {
+            font-size: 1.15rem; font-weight: 700; margin-bottom: 12px;
+            color: rgba(255,255,255,0.9);
+        }
+        .card-postulacion {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(0,180,216,0.2);
+            border-radius: 14px; padding: 16px; margin-bottom: 12px;
+        }
+        .info-trabajo h3 { font-size: 0.95rem; color: white; }
+        .info-trabajo .empresa { font-size: 0.82rem; color: var(--travel-sky); }
+
+        .stepper {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 18px 0 4px; font-size: 0.75rem;
+        }
+        .step { text-align: center; flex: 1; color: #94a3b8; }
+        .circle {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: #334155; margin: 0 auto 4px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.75rem; color: #94a3b8;
+        }
+        .line { flex: 0.5; height: 2px; background: #334155; margin-bottom: 22px; }
+        .step.active { color: var(--travel-sky); font-weight: 700; }
+        .step.active .circle { background: var(--travel-blue); color: white; }
+        .line.active { background: var(--travel-sky); }
+        .stepcontratado { text-align: center; flex: 1; color: var(--travel-success); font-weight: 700; font-size: 0.75rem; }
+        .circlecontrat { width: 24px; height: 24px; border-radius: 50%; background: var(--travel-success); margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; color: white; }
+        .btn-step-link { background: none; border: none; padding: 0; font-family: inherit; font-size: 9px; cursor: pointer; text-decoration: underline; color: inherit; }
+
+        /* ============================
+           CARGANDO VACANTES (lista de DB)
+        ============================ */
+        #lista-vacantes .vacante-card {
+            background: white;
+            border-radius: 16px; padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(3,4,94,0.12);
+            border-left: 4px solid var(--travel-sky);
+            position: relative;
+        }
+        #lista-vacantes .vacante-titulo {
+            font-size: 1rem; font-weight: 700;
+            color: var(--travel-dark); margin-bottom: 8px;
+        }
+        #lista-vacantes .vacante-empresa {
+            display: flex; align-items: center; gap: 7px;
+            color: var(--travel-blue); font-size: 0.88rem; font-weight: 600;
+            margin-bottom: 6px;
+        }
+        #lista-vacantes .vacante-lugar {
+            display: flex; align-items: center; gap: 7px;
+            color: var(--travel-gray); font-size: 0.82rem; margin-bottom: 14px;
+        }
+        #lista-vacantes hr { border: none; border-top: 1px solid #f0f0f0; margin-bottom: 12px; }
+        #lista-vacantes .vacante-footer {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        #lista-vacantes .vacante-tag {
+            background: var(--travel-light-bg); color: var(--travel-blue);
+            font-size: 0.72rem; font-weight: 600;
+            padding: 4px 10px; border-radius: 20px;
+        }
+        #lista-vacantes .btn-ver {
+            background-color: #6366f1;
+            color: white; border: none;
+            padding: 9px 18px; border-radius: 10px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 700;
+            transition: 0.3s; 
+        }
+        #lista-vacantes .btn-ver:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,119,182,0.4); }
+
+        /* ============================
+           BARRA NAVEGACIÓN INFERIOR (tipo WhatsApp)
+        ============================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: var(--nav-height);
+            background: linear-gradient(135deg, var(--travel-dark), #012a4a);
+            border-top: 1px solid rgba(0,180,216,0.2);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 1000;
+            padding: 0 4px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+        }
+
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 3px; padding: 6px 8px; border-radius: 12px;
+            cursor: pointer; transition: 0.25s;
+            text-decoration: none; color: rgba(255,255,255,0.45);
+            flex: 1; max-width: 75px;
+        }
+        .nav-item i { font-size: 1.2rem; transition: 0.25s; }
+        .nav-item span { font-size: 0.65rem; font-weight: 600; transition: 0.25s; }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--travel-sky);
+        }
+        .nav-item.active i {
+            filter: drop-shadow(0 0 6px var(--travel-sky));
+        }
+        .nav-item.nav-logout {
+            color: rgba(232,93,39,0.6);
+        }
+        .nav-item.nav-logout:hover {
+            color: var(--travel-coral);
+        }
+        .nav-item.nav-logout:hover i {
+            filter: drop-shadow(0 0 6px var(--travel-coral));
+        }
+
+        /* Badge activo central */
+        .nav-item.active-center {
+            background: rgba(0,180,216,0.15);
+            border: 1px solid rgba(0,180,216,0.3);
+        }
+
+        /* ============================
+           ANIMATIONS
+        ============================ */
+        @keyframes slideIn {
+            from { transform: translateY(-40px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        .vacante-card { animation: fadeUp 0.4s ease both; }
+        .vacante-card:nth-child(1) { animation-delay: 0.05s; }
+        .vacante-card:nth-child(2) { animation-delay: 0.10s; }
+        .vacante-card:nth-child(3) { animation-delay: 0.15s; }
+        .vacante-card:nth-child(4) { animation-delay: 0.20s; }
+
+        /* Skeleton loader */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 400% 100%;
+            animation: skeleton-anim 1.4s ease infinite;
+            border-radius: 10px; height: 14px; margin-bottom: 8px;
+        }
+        @keyframes skeleton-anim {
+            0%   { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Contador de resultados */
+        #resultado-count {
+            font-size: 0.82rem; color: rgba(255,255,255,0.45);
+            padding: 0 16px 10px; text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BANNER NOTIFICACIÓN ENTREVISTA -->
+    <div id="interview-notification" class="important-banner">
+        <div class="banner-content">
+            <i class="fas fa-calendar-check"></i>
+            <span>¡Tienes una entrevista pendiente con <strong>Castillo Solutions</strong>!</span>
+            <button onclick="openInterviewModal()" class="btn-ver-cita">Ver cita</button>
+        </div>
+    </div>
+
+    <!-- MODAL ENTREVISTA -->
+    <div id="interview-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header-green">
+                <i class="fas fa-award"></i>
+                <h2>¡Has sido seleccionado!</h2>
+            </div>
+            <div class="modal-body">
+                <p>La empresa <strong>Castillo Solutions</strong> desea agendar una videollamada contigo.</p>
+                <div class="interview-details">
+                    <div class="detail-item"><i class="fas fa-calendar"></i> 28 de Mayo, 2026</div>
+                    <div class="detail-item"><i class="fas fa-clock"></i> 10:30 AM</div>
+                    <div class="detail-item"><i class="fas fa-video"></i> En Línea (Video Conferencia)</div>
+                </div>
+                <div id="warning-text" style="display:none; color:#dc2626; background:#fee2e2; padding:10px; border-radius:8px; margin-top:12px; font-size:0.82rem; border:1px solid #fecaca;">
+                    <i class="fas fa-exclamation-triangle"></i> Si no te unes ahora, la entrevista se cancelará.
+                </div>
+                <p class="terms">¿Deseas aceptar y unirse?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-decline" onclick="showWarning()">Luego</button>
+                <button class="btn-accept" onclick="goToLobby()">Aceptar y Unirse</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOBBY VIDEOLLAMADA -->
+    <div id="video-lobby" class="lobby-overlay" style="display:none;">
+        <div class="lobby-container">
+            <h1>Prepárate para la entrevista</h1>
+            <div class="video-preview" id="camera-preview">
+                <div class="camera-off-msg" style="text-align:center; color:#94a3b8;">
+                    <i class="fas fa-video-slash" style="font-size:2rem;"></i>
+                    <p>Esperando permisos de cámara y audio...</p>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="control-btn"><i class="fas fa-microphone"></i></button>
+                <button class="control-btn"><i class="fas fa-video"></i></button>
+            </div>
+            <p style="color:#94a3b8; font-size:0.88rem;">¿Deseas permitir tu cámara y micrófono?</p>
+            <button class="btn-join-now" onclick="goToLobby()">Entrar a la sala</button>
+        </div>
+    </div>
+
+    <!-- TOPBAR -->
+    <header class="Contenedor-usuario">
+        <h1 class="marknic-logo">
+            <span class="text-white">Mark</span><span class="text-travel">Nic</span>
+        </h1>
+        <div class="user-menu-container">
+            <div class="user-icon" onclick="this.parentElement.querySelector('.dropdown-window').style.display = this.parentElement.querySelector('.dropdown-window').style.display==='block'?'none':'block'">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="dropdown-window">
+                <p class="dropdown-header">Ingresa y encuentra empleo con una mejor experiencia</p>
+                <a href="../Login/3. Iniciar Sesion.html">
+                    <button class="btn-ingresar">Inicia Sesión</button>
+                </a>
+                <a href="../Login/4. Registrarse.html">
+                    <button class="btn-registrar">Regístrate</button>
+                </a>
+                <hr class="divider">
+                <ul class="dropdown-list">
+                    <li><i class="fas fa-paper-plane"></i> Mis postulaciones</li>
+                    <li><i class="fas fa-heart"></i> Mis favoritos</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- BUSCADOR -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar vacantes (ej. Soporte, Ventas...)" autocomplete="off">
+        <button onclick="buscarVacantes()" class="btn-search">
+            <i class="fas fa-search"></i> Buscar
+        </button>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="mobile-filters">
+        <div class="filter-group">
+            <button class="filter-chip" onclick="toggleDropdown(event,'drop-area')">Área <i class="fas fa-chevron-down"></i></button>
+            <div id="drop-area" class="filter-dropdown">
+                <label><input type="checkbox"> Sistemas</label>
+                <label><input type="checkbox"> Electricidad</label>
+                <label><input type="checkbox"> Ventas</label>
+                <label><input type="checkbox"> Administración</label>
+                <label><input type="checkbox"> Atención al cliente</label>
+                <label><input type="checkbox"> Mecánico</label>
+            </div>
+        </div>
+        <div class="filter-group">
+            <button class="filter-chip" onclick="toggleDropdown(event,'drop-exp')">Experiencia <i class="fas fa-chevron-down"></i></button>
+            <div id="drop-exp" class="filter-dropdown">
+                <label><input type="radio" name="exp"> Sin experiencia</label>
+                <label><input type="radio" name="exp"> 1 a 3 años</label>
+                <label><input type="radio" name="exp"> 3 a 5 años</label>
+                <label><input type="radio" name="exp"> Más de 5 años</label>
+            </div>
+        </div>
+        <div class="filter-group">
+            <button class="filter-chip" onclick="toggleDropdown(event,'drop-sal')">Salario <i class="fas fa-chevron-down"></i></button>
+            <div id="drop-sal" class="filter-dropdown">
+                <label><input type="radio" name="sal"> Menos de $400</label>
+                <label><input type="radio" name="sal"> $400 - $600</label>
+                <label><input type="radio" name="sal"> $600 - $900</label>
+                <label><input type="radio" name="sal"> Más de $900</label>
+            </div>
+        </div>
+        <div class="filter-group">
+            <button class="filter-chip" onclick="toggleDropdown(event,'drop-loc')">Ubicación <i class="fas fa-chevron-down"></i></button>
+            <div id="drop-loc" class="filter-dropdown">
+                <label><input type="checkbox"> Managua</label>
+                <label><input type="checkbox"> Departamental</label>
+            </div>
+        </div>
+        <div class="filter-group">
+            <button class="filter-chip" onclick="toggleDropdown(event,'drop-mod')">Modalidad <i class="fas fa-chevron-down"></i></button>
+            <div id="drop-mod" class="filter-dropdown">
+                <label><input type="checkbox"> Presencial</label>
+                <label><input type="checkbox"> Híbrido</label>
+                <label><input type="checkbox"> 100% Remoto</label>
+            </div>
+        </div>
+        <div class="filter-group">
+            <button class="filter-chip" onclick="toggleDropdown(event,'drop-jor')">Jornada <i class="fas fa-chevron-down"></i></button>
+            <div id="drop-jor" class="filter-dropdown">
+                <label><input type="checkbox"> Tiempo Completo</label>
+                <label><input type="checkbox"> Medio Tiempo</label>
+                <label><input type="checkbox"> Pasantía</label>
+                <label><input type="checkbox"> Freelance</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORÍAS -->
+    <div class="categories-grid">
+        <a href="#" class="cat-item it"><i class="fa fa-laptop-code"></i><span>IT</span></a>
+        <a href="#" class="cat-item pasante"><i class="fa fa-headset"></i><span>Pasante</span></a>
+        <a href="#" class="cat-item electrica"><i class="fa fa-bolt"></i><span>Eléctrica</span></a>
+        <a href="#" class="cat-item ventas"><i class="fa fa-shopping-cart"></i><span>Ventas</span></a>
+    </div>
+
+    <!-- CONTADOR RESULTADOS -->
+    <div id="resultado-count"></div>
+
+    <!-- LISTA DE VACANTES DESDE DB -->
+    <section class="jobs-feed">
+        <div id="lista-vacantes">
+            <!-- Skeleton placeholder mientras carga -->
+            <div style="padding:0;">
+                <div style="background:rgba(255,255,255,0.05); border-radius:16px; padding:18px; margin-bottom:14px;">
+                    <div class="skeleton" style="width:60%; height:16px;"></div>
+                    <div class="skeleton" style="width:40%;"></div>
+                    <div class="skeleton" style="width:50%;"></div>
+                    <div class="skeleton" style="width:30%; height:32px; margin-top:12px; margin-left:auto;"></div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); border-radius:16px; padding:18px; margin-bottom:14px;">
+                    <div class="skeleton" style="width:70%; height:16px;"></div>
+                    <div class="skeleton" style="width:45%;"></div>
+                    <div class="skeleton" style="width:55%;"></div>
+                    <div class="skeleton" style="width:30%; height:32px; margin-top:12px; margin-left:auto;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sin resultados -->
+        <div id="noResults" style="display:none; text-align:center; padding:40px 20px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/6134/6134065.png" width="70" style="opacity:0.3; margin-bottom:12px; display:block; margin-left:auto; margin-right:auto;">
+            <p style="color:rgba(255,255,255,0.45);">No hay vacantes que coincidan con tu búsqueda.</p>
+        </div>
+    </section>
+
+    <!-- MIS POSTULACIONES -->
+    <section class="dashboard-container">
+        <h1>Mis Postulaciones</h1>
+        <div id="lista-postulaciones"></div>
+    </section>
+
+    <!-- Template postulaciones -->
+    <template id="template-postulacion">
+        <div class="card-postulacion">
+            <div class="info-trabajo">
+                <h3 class="puesto">Aspirante Web</h3>
+                <p class="empresa">MarkNic</p>
+            </div>
+            <div class="stepper">
+                <div class="step" data-status="recibido">
+                    <div class="circle">1</div>
+                    <span>Recibido</span>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-status="revision">
+                    <div class="circle">2</div>
+                    <span>En Revisión</span>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-status="entrevista">
+                    <div class="circle">3</div>
+                    <button onclick="openInterviewModal()" class="btn-step-link">Entrevista</button>
+                </div>
+                <div class="line"></div>
+                <div class="stepcontratado" data-status="contratado">
+                    <div class="circlecontrat">4</div>
+                    <span>Contratado</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR (estilo WhatsApp/móvil) -->
+    <nav class="bottom-nav">
+        <a href="1. indexmenu.html" class="nav-item active active-center" title="Inicio">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="#postulaciones" class="nav-item" title="Mis Postulaciones" onclick="scrollToSection('lista-postulaciones', this)">
+            <i class="fas fa-paper-plane"></i>
+            <span>Postulaciones</span>
+        </a>
+        <a href="#perfil" class="nav-item" title="Mi Perfil">
+            <i class="fas fa-user-circle"></i>
+            <span>Mi Perfil</span>
+        </a>
+        <a href="#ajustes" class="nav-item" title="Ajustes">
+            <i class="fas fa-cog"></i>
+            <span>Ajustes</span>
+        </a>
+        <a href="../Login/3. Iniciar Sesion.html" class="nav-item nav-logout" title="Cerrar Sesión">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Salir</span>
+        </a>
+    </nav>
+
+<script>
+// ==========================================
+// MODALES Y VIDEOLLAMADA
+// ==========================================
+function openInterviewModal() {
+    document.getElementById('interview-modal').style.display = 'flex';
+}
+function showWarning() {
+    const w = document.getElementById('warning-text');
+    const modal = document.getElementById('interview-modal');
+    if (w.style.display === 'none' || w.style.display === '') {
+        w.style.display = 'block';
+    } else {
+        modal.style.display = 'none';
+    }
+}
+function goToLobby() {
+    document.getElementById('interview-modal').style.display = 'none';
+    document.getElementById('video-lobby').style.display = 'flex';
+    requestPermissions();
+}
+async function requestPermissions() {
+    const preview = document.getElementById('camera-preview');
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
+        const vid = document.createElement('video');
+        vid.srcObject = stream;
+        vid.autoplay = true; vid.muted = true; vid.playsInline = true;
+        vid.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:12px;transform:scaleX(-1);';
+        preview.innerHTML = '';
+        preview.appendChild(vid);
+    } catch (err) {
+        preview.innerHTML = `<div style="color:#ff4d4d;padding:20px;text-align:center;"><i class="fas fa-exclamation-triangle"></i><p>No se pudo acceder a la cámara. Revisa los permisos.</p></div>`;
+    }
+}
+
+// ==========================================
+// SUPABASE + CARGA DE VACANTES
+// ==========================================
+const supabaseUrl = 'https://mrretnaghvkipwggktfp.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ycmV0bmFnaHZraXB3Z2drdGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMTA0NDgsImV4cCI6MjA5MTc4NjQ0OH0.UF_bhFFP__31GiiTxy2fsaKVqNjGie6H2LdGuAvZmoc';
+const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+// Guardamos los datos para que la búsqueda los filtre en memoria
+let todasLasVacantes = [];
+
+async function obtenerTrabajos() {
+    const contenedor = document.getElementById('lista-vacantes');
+    if (!contenedor) return;
+
+    const { data, error } = await clienteSupabase.from('job_offer').select('*');
+
+    if (error) {
+        contenedor.innerHTML = '<p style="color:rgba(255,255,255,0.5);text-align:center;padding:20px;">Error al conectar con el servidor.</p>';
+        return;
+    }
+
+    todasLasVacantes = data || [];
+    actualizarContador(todasLasVacantes.length);
+    renderizarVacantes(todasLasVacantes);
+}
+
+function renderizarVacantes(lista) {
+    const contenedor = document.getElementById('lista-vacantes');
+    const sinResultados = document.getElementById('noResults');
+
+    if (!lista || lista.length === 0) {
+        contenedor.innerHTML = '';
+        sinResultados.style.display = 'block';
+        return;
+    }
+
+    sinResultados.style.display = 'none';
+
+    contenedor.innerHTML = lista.map((t, i) => {
+        // Tomamos el nombre de la empresa del campo más apropiado
+        // Intentamos company_name, luego employer_name, luego description_original
+        const empresa = t.company_name || t.employer_name || t.description_original || 'Empresa confidencial';
+        const titulo  = t.title || t.job_title || 'Vacante disponible';
+        const lugar   = t.location || t.city || 'Managua, Nicaragua';
+        const fechaMs = t.created_at ? Math.floor((Date.now() - new Date(t.created_at)) / 86400000) : null;
+        const etiqueta = fechaMs === null ? 'Nuevo' : fechaMs === 0 ? 'Hoy' : `Hace ${fechaMs} días`;
+
+        return `
+        <div class="vacante-card" style="animation-delay:${i * 0.06}s;">
+            <div class="vacante-titulo">${titulo}</div>
+            <div class="vacante-empresa"><i class="fas fa-building"></i> ${empresa}</div>
+            <div class="vacante-lugar"><i class="fas fa-map-marker-alt"></i> ${lugar}</div>
+            <hr>
+            <div class="vacante-footer">
+                <span class="vacante-tag">${etiqueta}</span>
+                <button class="btn-ver" onclick="verDetalle(${t.id})">Ver detalles</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function verDetalle(id) {
+    window.location.href = `7. indexpostularse.html?id=${id}`;
+}
+
+function actualizarContador(n) {
+    const el = document.getElementById('resultado-count');
+    if (el) el.textContent = n > 0 ? `${n} vacante${n !== 1 ? 's' : ''} disponible${n !== 1 ? 's' : ''}` : '';
+}
+
+// ==========================================
+// BÚSQUEDA EN TIEMPO REAL (desde la DB cargada)
+// ==========================================
+function buscarVacantes() {
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    if (!query) {
+        actualizarContador(todasLasVacantes.length);
+        renderizarVacantes(todasLasVacantes);
+        return;
+    }
+
+    const filtradas = todasLasVacantes.filter(t => {
+        const titulo  = (t.title || t.job_title || '').toLowerCase();
+        const empresa = (t.company_name || t.employer_name || t.description_original || '').toLowerCase();
+        const lugar   = (t.location || t.city || '').toLowerCase();
+        const skills  = (t.skills_required || '').toLowerCase();
+        return titulo.includes(query) || empresa.includes(query) || lugar.includes(query) || skills.includes(query);
+    });
+
+    actualizarContador(filtradas.length);
+    renderizarVacantes(filtradas);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('searchInput');
+    if (input) {
+        input.addEventListener('keyup', buscarVacantes);
+        input.addEventListener('search', buscarVacantes);
+    }
+    obtenerTrabajos();
+    renderizarPostulaciones();
+});
+
+// ==========================================
+// POSTULACIONES
+// ==========================================
+const misPostulaciones = [
+    { puesto: 'Ejecutivo de Soporte Técnico', empresa: 'Maverick, S.A.', estado: 'revision' },
+    { puesto: 'Pasantía de Sistemas', empresa: 'Castillo Solutions', estado: 'contratado' }
+];
+const niveles = { recibido: 0, revision: 1, entrevista: 2, contratado: 3 };
+
+function renderizarPostulaciones() {
+    const contenedor = document.getElementById('lista-postulaciones');
+    const template   = document.getElementById('template-postulacion');
+    if (!contenedor || !template) return;
+
+    misPostulaciones.forEach(p => {
+        const clone = template.content.cloneNode(true);
+        clone.querySelector('.puesto').textContent  = p.puesto;
+        clone.querySelector('.empresa').textContent = p.empresa;
+
+        const pasos  = clone.querySelectorAll('.step');
+        const lineas = clone.querySelectorAll('.line');
+        const nivel  = niveles[p.estado] ?? 0;
+
+        pasos.forEach((paso, i)  => { if (i <= nivel) paso.classList.add('active'); });
+        lineas.forEach((l, i) => { if (i < nivel) l.classList.add('active'); });
+        contenedor.appendChild(clone);
+    });
+}
+
+// ==========================================
+// FILTROS DESPLEGABLES
+// ==========================================
+function toggleDropdown(event, id) {
+    event.stopPropagation();
+    const menu    = document.getElementById(id);
+    const abierto = menu.classList.contains('show-dropdown');
+
+    document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('show-dropdown'));
+    if (!abierto) menu.classList.add('show-dropdown');
+}
+document.addEventListener('click', e => {
+    if (!e.target.closest('.filter-group')) {
+        document.querySelectorAll('.filter-dropdown').forEach(d => d.classList.remove('show-dropdown'));
+    }
+});
+document.querySelectorAll('.filter-dropdown input').forEach(inp => {
+    inp.addEventListener('change', function () {
+        const padre = this.closest('.filter-dropdown');
+        if (padre) setTimeout(() => padre.classList.remove('show-dropdown'), 200);
+    });
+});
+
+// ==========================================
+// NAVEGACIÓN BOTTOM BAR
+// ==========================================
+function scrollToSection(id, el) {
+    event.preventDefault();
+    const section = document.getElementById(id);
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
+
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'active-center'));
+    el.classList.add('active');
+}
+</script>
+
+</body>
+</html>

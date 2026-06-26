@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postularme | MarkNic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+           --travel-blue:      #6366f1;
+            --travel-sky:       #f9f9f9;
+            --travel-coral:     #2a6a05;
+            --travel-sand:      #F5E6D3;
+            --travel-dark:      #0f172a;
+            --travel-white:     #FFFFFF;
+            --travel-gray:      #6B7280;
+            --travel-light-bg:  #F0F8FF;
+            --travel-card-bg:   #FFFFFF;
+            --travel-success:   #0CAA56;
+            --nav-height:       65px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--travel-dark);
+            min-height: 100vh;
+            padding-bottom: calc(var(--nav-height) + 16px);
+        }
+
+        /* ====== TOPBAR ====== */
+        .topbar {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, var(--travel-dark), #0077B6cc);
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid rgba(0,180,216,0.2);
+        }
+        .btn-back {
+            background: rgba(255,255,255,0.1); color: white; border: none;
+            width: 38px; height: 38px; border-radius: 10px;
+            cursor: pointer; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .btn-back:hover { background: rgba(255,255,255,0.2); }
+        .topbar h2 { color: white; font-size: 1rem; font-weight: 700; }
+
+        /* ====== CONTENEDOR PRINCIPAL ====== */
+        .contenedor {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 0 0 20px;
+        }
+
+        /* ====== HERO DEL PUESTO ====== */
+        .hero-puesto {
+            background: linear-gradient(135deg, var(--travel-dark), var(--travel-blue));
+            padding: 20px 18px 18px;
+            color: white;
+        }
+        .hero-puesto .label-puesto {
+            font-size: 0.7rem; font-weight: 700;
+            color: var(--travel-sky); text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 4px;
+        }
+        .hero-puesto h1 {
+            font-size: 1.25rem; font-weight: 800; line-height: 1.3;
+        }
+        .hero-puesto .empresa-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 8px; color: rgba(255,255,255,0.7); font-size: 0.85rem;
+        }
+
+        /* ====== TARJETA BLANCA GENERAL ====== */
+        .tarjeta {
+            background: white;
+            margin: 0 0 3px;
+            padding: 18px 16px;
+        }
+        .tarjeta:last-of-type { border-radius: 0 0 20px 20px; }
+
+        .seccion-titulo {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.72rem; font-weight: 700;
+            color: var(--travel-blue); text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--travel-light);
+        }
+        .seccion-titulo i { color: var(--travel-sky); font-size: 0.9rem; }
+
+        /* ====== INPUTS ====== */
+        .fila { display: flex; gap: 10px; margin-bottom: 12px; }
+        .fila .grupo { flex: 1; }
+
+        .grupo { margin-bottom: 12px; }
+        .grupo label {
+            display: block; font-size: 0.72rem; font-weight: 700;
+            color: #64748b; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 5px;
+        }
+        .grupo input, .grupo select, .grupo textarea {
+            width: 100%; padding: 11px 13px;
+            border: 2px solid #e2e8f0; border-radius: 10px;
+            font-size: 0.9rem; color: #1e293b;
+            font-family: inherit; transition: 0.3s;
+            background: #f8fafc; outline: none;
+        }
+        .grupo input:focus, .grupo select:focus, .grupo textarea:focus {
+            border-color: var(--travel-sky);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
+        }
+        .grupo textarea { resize: none; min-height: 80px; line-height: 1.5; }
+
+        /* ====== SUBIR CV ====== */
+        .upload-area {
+            border: 2px dashed rgba(0,119,182,0.4);
+            border-radius: 14px;
+            padding: 24px 16px;
+            text-align: center;
+            background: var(--travel-light);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .upload-area:hover {
+            border-color: var(--travel-sky);
+            background: #e0f5fb;
+        }
+        .upload-area.activo {
+            border-color: var(--travel-success);
+            background: #f0fdf4;
+        }
+        .upload-area i {
+            font-size: 2.2rem; color: var(--travel-blue);
+            margin-bottom: 8px; display: block;
+        }
+        .upload-area p { font-size: 0.88rem; color: #475569; font-weight: 600; }
+        .upload-area span { font-size: 0.75rem; color: #94a3b8; }
+        #file-nombre {
+            margin-top: 10px; font-size: 0.82rem;
+            color: var(--travel-success); font-weight: 700; display: none;
+        }
+        #file-nombre i { margin-right: 5px; }
+
+        /* ====== FORTALEZAS / TAGS ====== */
+        .tags-wrap {
+            display: flex; flex-wrap: wrap; gap: 7px;
+            padding: 10px;
+            border: 2px solid #e2e8f0; border-radius: 10px;
+            background: #f8fafc; min-height: 50px;
+            cursor: text; transition: 0.3s;
+        }
+        .tags-wrap:focus-within {
+            border-color: var(--travel-sky);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
+        }
+        .tag-item {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; border-radius: 20px;
+            padding: 4px 10px; font-size: 0.78rem; font-weight: 600;
+        }
+        .tag-item i { cursor: pointer; font-size: 0.7rem; opacity: 0.8; }
+        .tag-item i:hover { opacity: 1; }
+        .tag-input-inline {
+            border: none; outline: none; background: transparent;
+            font-size: 0.88rem; color: #1e293b; font-family: inherit;
+            min-width: 120px; flex: 1; padding: 2px 4px;
+        }
+        .hint-tags {
+            font-size: 0.72rem; color: #94a3b8; margin-top: 5px;
+        }
+
+        /* ====== NIVEL DE SKILL (estrellas) ====== */
+        .skills-lista { display: flex; flex-direction: column; gap: 10px; }
+        .skill-fila {
+            display: flex; align-items: center;
+            gap: 10px;
+        }
+        .skill-fila .skill-nombre {
+            flex: 1; font-size: 0.85rem; font-weight: 600; color: #374151;
+        }
+        .estrellas { display: flex; gap: 3px; }
+        .estrella {
+            font-size: 1.1rem; cursor: pointer;
+            color: #d1d5db; transition: 0.2s;
+        }
+        .estrella.activa { color: #f59e0b; }
+        .estrella:hover { transform: scale(1.2); }
+
+        /* ====== DISPONIBILIDAD ====== */
+        .opciones-disp {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .opcion-disp {
+            border: 2px solid #e2e8f0; border-radius: 10px;
+            padding: 10px 12px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.83rem; font-weight: 600; color: #374151;
+        }
+        .opcion-disp i { color: var(--travel-blue); font-size: 1rem; }
+        .opcion-disp.seleccionada {
+            border-color: var(--travel-blue);
+            background: var(--travel-light);
+            color: var(--travel-blue);
+        }
+        .opcion-disp.seleccionada i { color: var(--travel-sky); }
+
+        /* ====== BOTONES FINALES ====== */
+        .acciones {
+            display: flex; gap: 10px;
+            padding: 16px;
+            background: white;
+            border-radius: 0 0 20px 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .btn-cancelar {
+            flex: 1; padding: 13px;
+            background: transparent; color: #64748b;
+            border: 2px solid #e2e8f0; border-radius: 12px;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.3s;
+        }
+        .btn-cancelar:hover { border-color: #94a3b8; background: #f8fafc; }
+
+        .btn-enviar {
+            flex: 2; padding: 13px;
+            background: linear-gradient(135deg, var(--travel-blue));
+            color: white; border: none; border-radius: 12px;
+            font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-enviar:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        .btn-enviar:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* ====== BOTTOM NAV ====== */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: var(--nav-height);
+            background: linear-gradient(135deg, var(--travel-dark), #012a4a);
+            border-top: 1px solid rgba(0,180,216,0.2);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 3px; padding: 6px 8px; border-radius: 12px;
+            cursor: pointer; text-decoration: none;
+            color: rgba(255,255,255,0.45); flex: 1; max-width: 75px;
+            transition: 0.25s;
+        }
+        .nav-item i { font-size: 1.2rem; }
+        .nav-item span { font-size: 0.65rem; font-weight: 600; }
+        .nav-item:hover { color: var(--travel-sky); }
+        .nav-item.nav-logout { color: rgba(232,93,39,0.6); }
+        .nav-item.nav-logout:hover { color: var(--travel-coral); }
+
+        /* ====== MODAL ÉXITO ====== */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 20px;
+        }
+        .modal-exito {
+            background: white; border-radius: 20px;
+            padding: 36px 24px; text-align: center;
+            max-width: 320px; width: 100%;
+            animation: popIn 0.3s ease;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+        .icono-exito {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--travel-success), #34d399);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 2rem; color: white;
+        }
+        .modal-exito h3 { font-size: 1.2rem; color: var(--travel-dark); margin-bottom: 8px; }
+        .modal-exito p { font-size: 0.88rem; color: #64748b; margin-bottom: 20px; }
+        .btn-ok {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; border: none; padding: 12px 32px;
+            border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem;
+        }
+
+        @keyframes fadeUp {
+            from { transform: translateY(16px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        .tarjeta { animation: fadeUp 0.35s ease both; }
+        .tarjeta:nth-child(1) { animation-delay: 0.05s; }
+        .tarjeta:nth-child(2) { animation-delay: 0.10s; }
+        .tarjeta:nth-child(3) { animation-delay: 0.15s; }
+        .tarjeta:nth-child(4) { animation-delay: 0.20s; }
+        .tarjeta:nth-child(5) { animation-delay: 0.25s; }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <button class="btn-back" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2>Postularme</h2>
+    </div>
+
+    <div class="contenedor">
+
+        <!-- HERO PUESTO -->
+        <div class="hero-puesto">
+            <div class="label-puesto">Estás aplicando a</div>
+            <h1 id="nombre-puesto">Desarrollador Full Stack Junior</h1>
+            <div class="empresa-tag">
+                <i class="fas fa-building"></i>
+                <span id="nombre-empresa">PETATE NICARAGUA</span>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 1: CV -->
+        <div class="tarjeta">
+            <div class="seccion-titulo">
+                <i class="fas fa-file-pdf"></i> Currículum Vitae
+            </div>
+            <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-cv').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Subir CV</p>
+                <span>Toca aquí o arrastra tu archivo PDF</span>
+                <div id="file-nombre"></div>
+            </div>
+            <input type="file" id="file-cv" hidden accept=".pdf">
+        </div>
+
+        <!-- SECCIÓN 2: DATOS PERSONALES -->
+        <div class="tarjeta">
+            <div class="seccion-titulo">
+                <i class="fas fa-id-card"></i> Información Personal
+            </div>
+            <div class="fila">
+                <div class="grupo">
+                    <label>Nombre</label>
+                    <input type="text" placeholder="Juan José" autocomplete="given-name">
+                </div>
+                <div class="grupo">
+                    <label>Apellido</label>
+                    <input type="text" placeholder="López" autocomplete="family-name">
+                </div>
+            </div>
+            <div class="fila">
+                <div class="grupo">
+                    <label>Cédula</label>
+                    <input type="text" placeholder="001-000000-0000X">
+                </div>
+                <div class="grupo">
+                    <label>Fecha de Nac.</label>
+                    <input type="date">
+                </div>
+            </div>
+            <div class="fila">
+                <div class="grupo">
+                    <label>Teléfono</label>
+                    <input type="tel" placeholder="8888-8888" autocomplete="tel">
+                </div>
+                <div class="grupo">
+                    <label>Correo</label>
+                    <input type="email" placeholder="correo@gmail.com" autocomplete="email">
+                </div>
+            </div>
+            <div class="grupo">
+                <label>Dirección</label>
+                <input type="text" placeholder="Managua, Nicaragua" autocomplete="street-address">
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: FORTALEZAS / SKILLS -->
+        <div class="tarjeta">
+            <div class="seccion-titulo">
+                <i class="fas fa-star"></i> Mis Fortalezas
+            </div>
+
+            <!-- Tags de habilidades -->
+            <div class="grupo">
+                <label>Habilidades y conocimientos</label>
+                <div class="tags-wrap" id="tags-container" onclick="document.getElementById('tag-input').focus()">
+                    <input type="text" id="tag-input" class="tag-input-inline" placeholder="Escribe y presiona Enter...">
+                </div>
+                <p class="hint-tags"><i class="fas fa-lightbulb"></i> Ej: Python, Excel Avanzado, Figma, Atención al cliente...</p>
+            </div>
+
+            <!-- Nivel de habilidades principales -->
+            <div class="grupo" style="margin-top:6px;">
+                <label>Nivel en tus principales áreas</label>
+                <div class="skills-lista" id="skills-lista">
+                    <!-- Se generan dinámicamente -->
+                </div>
+                <div style="margin-top:10px; display:flex; gap:8px;">
+                    <input type="text" id="nueva-skill" placeholder="Agregar área (ej. Diseño UI)" style="flex:1; padding:9px 12px; border:2px solid #e2e8f0; border-radius:10px; font-size:0.85rem; outline:none;">
+                    <button onclick="agregarSkill()" style="padding:9px 14px; background:var(--travel-blue); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: SOBRE MÍ -->
+        <div class="tarjeta">
+            <div class="seccion-titulo">
+                <i class="fas fa-user-tie"></i> Sobre Mí
+            </div>
+            <div class="grupo">
+                <label>¿Por qué eres el candidato ideal?</label>
+                <textarea placeholder="Cuéntale a la empresa tus puntos más fuertes, tu motivación y lo que puedes aportar..."></textarea>
+            </div>
+            <div class="grupo">
+                <label>Experiencia previa relevante</label>
+                <textarea placeholder="Describe brevemente tu experiencia relacionada con este puesto..."></textarea>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 5: DISPONIBILIDAD -->
+        <div class="tarjeta">
+            <div class="seccion-titulo">
+                <i class="fas fa-calendar-check"></i> Disponibilidad
+            </div>
+            <div class="opciones-disp" id="opciones-disp">
+                <div class="opcion-disp seleccionada" onclick="seleccionarDisp(this)">
+                    <i class="fas fa-sun"></i> Tiempo completo
+                </div>
+                <div class="opcion-disp" onclick="seleccionarDisp(this)">
+                    <i class="fas fa-clock"></i> Medio tiempo
+                </div>
+                <div class="opcion-disp" onclick="seleccionarDisp(this)">
+                    <i class="fas fa-laptop-house"></i> 100% Remoto
+                </div>
+                <div class="opcion-disp" onclick="seleccionarDisp(this)">
+                    <i class="fas fa-graduation-cap"></i> Pasantía
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="acciones">
+            <button class="btn-cancelar" onclick="window.history.back()">Cancelar</button>
+            <button class="btn-enviar" id="btn-enviar" onclick="enviarPostulacion()">
+                <i class="fas fa-paper-plane"></i>
+                <span id="texto-btn">Enviar Postulación</span>
+            </button>
+        </div>
+
+    </div><!-- fin contenedor -->
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <a href="1. indexmenu.html" class="nav-item">
+            <i class="fas fa-home"></i><span>Inicio</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-paper-plane"></i><span>Postulaciones</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user-circle"></i><span>Mi Perfil</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-cog"></i><span>Ajustes</span>
+        </a>
+        <a href="../Login/3. Iniciar Sesion.html" class="nav-item nav-logout">
+            <i class="fas fa-sign-out-alt"></i><span>Salir</span>
+        </a>
+    </nav>
+
+    <!-- MODAL ÉXITO -->
+    <div class="modal-overlay" id="modal-exito">
+        <div class="modal-exito">
+            <div class="icono-exito"><i class="fas fa-check"></i></div>
+            <h3>¡Postulación enviada!</h3>
+            <p>Tu perfil ha sido enviado correctamente. La empresa revisará tu solicitud y te contactará pronto.</p>
+            <button class="btn-ok" onclick="window.location.href='1. indexmenu.html'">Volver al inicio</button>
+        </div>
+    </div>
+
+    <script>
+        // ======= CV UPLOAD =======
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-cv');
+        const fileNombre = document.getElementById('file-nombre');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                dropZone.classList.add('activo');
+                dropZone.querySelector('i').className = 'fas fa-check-circle';
+                dropZone.querySelector('i').style.color = 'var(--travel-success)';
+                dropZone.querySelector('p').textContent = 'CV listo';
+                fileNombre.style.display = 'block';
+                fileNombre.innerHTML = `<i class="fas fa-file-pdf" style="color:var(--travel-coral)"></i> ${this.files[0].name}`;
+            }
+        });
+
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--travel-sky)'; });
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                fileInput.files = dt.files;
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+        // ======= TAGS DE HABILIDADES =======
+        const tagInput = document.getElementById('tag-input');
+        const tagsContainer = document.getElementById('tags-container');
+        let tags = [];
+
+        tagInput.addEventListener('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ',') && this.value.trim()) {
+                e.preventDefault();
+                const val = this.value.trim().replace(/,/g, '');
+                if (val && !tags.includes(val)) agregarTag(val);
+                this.value = '';
+            }
+            if (e.key === 'Backspace' && !this.value && tags.length) {
+                eliminarTag(tags[tags.length - 1]);
+            }
+        });
+
+        function agregarTag(texto) {
+            tags.push(texto);
+            const div = document.createElement('div');
+            div.className = 'tag-item';
+            div.dataset.valor = texto;
+            div.innerHTML = `${texto} <i class="fas fa-times" onclick="eliminarTag('${texto}')"></i>`;
+            tagsContainer.insertBefore(div, tagInput);
+        }
+
+        function eliminarTag(texto) {
+            tags = tags.filter(t => t !== texto);
+            const el = tagsContainer.querySelector(`[data-valor="${texto}"]`);
+            if (el) el.remove();
+        }
+
+        // ======= SKILLS CON ESTRELLAS =======
+        const skillsIniciales = ['Programación', 'Comunicación', 'Trabajo en equipo'];
+        const skilsLista = document.getElementById('skills-lista');
+
+        function crearFilaSkill(nombre) {
+            const fila = document.createElement('div');
+            fila.className = 'skill-fila';
+            fila.innerHTML = `
+                <span class="skill-nombre">${nombre}</span>
+                <div class="estrellas">
+                    ${[1,2,3,4,5].map(n => `<span class="estrella" data-val="${n}" onclick="marcarEstrella(this)">★</span>`).join('')}
+                </div>
+                <i class="fas fa-times" style="color:#e2e8f0; cursor:pointer; font-size:0.8rem;" onclick="this.parentElement.remove()"></i>
+            `;
+            skilsLista.appendChild(fila);
+        }
+
+        function marcarEstrella(el) {
+            const val = parseInt(el.dataset.val);
+            const estrellas = el.parentElement.querySelectorAll('.estrella');
+            estrellas.forEach((s, i) => {
+                s.classList.toggle('activa', i < val);
+            });
+        }
+
+        function agregarSkill() {
+            const input = document.getElementById('nueva-skill');
+            const nombre = input.value.trim();
+            if (nombre) { crearFilaSkill(nombre); input.value = ''; }
+        }
+
+        document.getElementById('nueva-skill').addEventListener('keydown', e => {
+            if (e.key === 'Enter') agregarSkill();
+        });
+
+        skillsIniciales.forEach(crearFilaSkill);
+
+        // ======= DISPONIBILIDAD =======
+        function seleccionarDisp(el) {
+            document.querySelectorAll('.opcion-disp').forEach(o => o.classList.remove('seleccionada'));
+            el.classList.add('seleccionada');
+        }
+
+        // ======= ENVÍO =======
+        function enviarPostulacion() {
+            const btn = document.getElementById('btn-enviar');
+            const texto = document.getElementById('texto-btn');
+
+            btn.disabled = true;
+            texto.textContent = 'Enviando...';
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> <span>Enviando...</span>';
+
+            setTimeout(() => {
+                document.getElementById('modal-exito').style.display = 'flex';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Enviar Postulación</span>';
+            }, 1800);
+        }
+
+        // ======= DATOS DEL PUESTO POR URL =======
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('puesto'))  document.getElementById('nombre-puesto').textContent  = params.get('puesto');
+        if (params.get('empresa')) document.getElementById('nombre-empresa').textContent = params.get('empresa');
+    </script>
+
+</body>
+</html>

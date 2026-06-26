@@ -1,0 +1,269 @@
+/* --- VARIABLES --- */
+:root {
+    --verde: #083300;
+    --morado: #8b5cf6;
+    --morado-hover: #7c3aed;
+    --blanco: #ffffff;
+    --gris-fondo: #0F172A;
+    --borde: #e2e8f0;
+    --texto-suave: #64748b;
+}
+
+/* --- REGLA DE ORO RESPONSIVE --- */
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--gris-fondo);
+    color: #333;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    padding: 10px; 
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.modal-postulacion {
+    width: 100%; 
+    max-width: 700px;
+    background: var(--blanco);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- ENCABEZADO DELGADO (CORREGIDO) --- */
+.header-postulacion {
+    background-color: var(--verde);
+    padding: 15px 10px; 
+    color: white;
+    text-align: center;
+    border-bottom: 3px solid var(--morado); 
+}
+
+.header-postulacion h1 {
+    font-size: 1.3rem; /* Tamaño más balanceado */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.header-postulacion p {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+/* --- CUERPO DEL FORMULARIO --- */
+.form-postulacion {
+    padding: 20px;
+}
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section h3 {
+    color: var(--verde);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 5px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--texto-suave);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.input-group input, 
+.input-group textarea {
+    padding: 10px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    width: 100%; 
+}
+
+.input-group input:focus, 
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--morado);
+    background: #fff;
+}
+
+/* --- ÁREA DE SUBIDA DE CV (CORREGIDA) --- */
+.upload-area {
+    border: 2px dashed var(--morado);
+    background: #f5f3ff;
+    padding: 15px 10px; 
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--morado);
+    transition: 0.3s;
+    width: 100%;
+    display: block;
+}
+
+.upload-area i { 
+    font-size: 1.8rem; 
+    margin-bottom: 8px; 
+    display: block;
+}
+
+.upload-area p {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+
+.upload-area span {
+    font-size: 0.7rem;
+    color: var(--texto-suave);
+}
+
+.upload-area.active {
+    background: #f0fdf4;
+    border-color: #083300;
+    color: #083300;
+}
+
+/* --- BOTONES --- */
+.acciones-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.btn-enviar {
+    background: var(--morado);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-enviar:disabled {
+    background: #cbd5e1;
+}
+
+.btn-cancelar {
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+@media (min-width: 600px) {
+    body { padding: 30px 20px; }
+    
+    .header-postulacion { padding: 25px 20px; }
+    
+    .header-postulacion h1 { font-size: 1.6rem; }
+
+    .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .upload-area { padding: 30px; }
+
+    .acciones-form {
+        grid-template-columns: 1fr 2fr;
+    }
+
+   /* --- CONTENEDOR DE ETIQUETAS --- */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: #f8fafc;
+    min-height: 50px;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.tags-container:focus-within {
+    border-color: var(--morado);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+/* La burbuja de la etiqueta */
+.tag {
+    background: var(--morado);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    animation: tagPop 0.2s ease-out;
+}
+
+@keyframes tagPop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.tag i {
+    cursor: pointer;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.tag i:hover { opacity: 1; }
+
+/* El input dentro del contenedor */
+#tag-input {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    flex: 1;
+    min-width: 120px;
+    padding: 5px !important;
+    font-size: 0.95rem;
+}
+}
