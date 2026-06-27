@@ -523,4 +523,43 @@
             font-size: 0.82rem; color: rgba(255,255,255,0.45);
             padding: 0 16px 10px; text-align: right;
         }
+
+
+        /* =========================================
+   DISEÑO PARA CELULARES (Tú ya lo tienes)
+   Todo tu CSS actual va arriba de esto.
+========================================= */
+
+/* =========================================
+   TABLETS (Pantallas de más de 768px)
+========================================= */
+@media (min-width: 768px) {
+    /* Ejemplo: Convertir la lista de vacantes en 2 columnas */
+    .contenedor-vacantes {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas iguales */
+        gap: 20px;
+    }
+
+    /* Ejemplo: Hacer el texto un poco más grande */
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+/* =========================================
+   ESCRITORIO / PC (Pantallas de más de 1024px)
+========================================= */
+@media (min-width: 1024px) {
+    /* Ejemplo: Convertir la lista de vacantes en 3 columnas */
+    .contenedor-vacantes {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    }
+
+    /* Ejemplo: Centrar tu contenedor principal en la pantalla */
+    .app-container {
+        max-width: 1200px;
+        margin: 0 auto; /* Lo centra horizontalmente */
+    }
+}
     
