@@ -1,993 +1,526 @@
-/* Variables de diseño móvil */
-:root {
-    --primary: #6366f1;
-    --secondary: #4f46e5;
-    --bg: #0F172A;
-    --white: #ffffff;
-    --gray-text: #6b7280;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    width: 100%;
-    max-width: 100vw;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg);
-    padding-top: 70px;
-    /* Espacio para el navbar fijo */
-    padding-bottom: 80px;
-    /* Espacio para que el último elemento no choque con el borde */
-    line-height: 1.5;
-    overflow-x: hidden;
-    /* Evita que el sitio se mueva hacia los lados en móvil */
-}
-
-/* Banner de notificación importante */
-.important-banner {
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
-    color: white;
-    padding: 15px;
-    border-radius: 12px;
-    margin: 20px;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-    animation: slideIn 0.5s ease-out;
-}
-
-.banner-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    /* Ajuste responsive: si no cabe, el botón baja */
-}
-
-.btn-ver-cita {
-    background: white;
-    color: #6366f1;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Modales y Overlays */
-.modal-overlay,
-.lobby-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: none;
-    /* Se activa con JS */
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    padding: 15px;
-    /* Margen de seguridad para móviles */
-}
-
-.modal-card {
-    background: white;
-    width: 95%;
-    /* Ajuste responsive */
-    max-width: 450px;
-    border-radius: 20px;
-    overflow: hidden;
-    text-align: center;
-}
-
-.modal-header-green {
-    background: #147904;
-    /* Verde MarkNic */
-    color: white;
-    padding: 30px;
-    font-size: 1.2rem;
-}
-
-.modal-header-green i {
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-
-.interview-details {
-    background: #f8fafc;
-    margin: 20px;
-    padding: 15px;
-    border-radius: 12px;
-    text-align: left;
-}
-
-.detail-item {
-    margin: 8px 0;
-    color: #475569;
-    font-weight: 500;
-}
-
-.btn-accept {
-    background: #10b981;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.btn-decline {
-    background: #ef4444;
-    margin-left: 10px;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Borde superior naranja para advertencia */
-.warning-border {
-    border-top: 6px solid #f59e0b;
-}
-
-.modal-header-warning {
-    padding: 25px;
-    color: #f59e0b;
-    text-align: center;
-}
-
-.modal-header-warning i {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-}
-
-.modal-footer-warning {
-    display: flex;
-    gap: 10px;
-    padding: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    /* Ajuste responsive para botones en vertical si es necesario */
-}
-
-/* Botón para arrepentirse y volver */
-.btn-back {
-    background: #f3f4f6;
-    color: #374151;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    flex: 1;
-    min-width: 120px;
-    /* Evita que el botón se vea minúsculo */
-}
-
-/* Botón para confirmar que acepta el riesgo */
-.btn-confirm-cancel {
-    background: #dc2626;
-    /* Rojo */
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    flex: 1;
-    min-width: 120px;
-}
-
-.btn-confirm-cancel:hover {
-    background: #b91c1c;
-}
-
-
-/* Lobby tipo Google Meet */
-.lobby-container {
-    background: #1e293b;
-    color: white;
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    /* Asegura que cubra la pantalla en móviles */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.video-preview {
-    width: 100%;
-    max-width: 600px;
-    aspect-ratio: 16/9;
-    background: #000;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-    border: 2px solid #6366f1;
-}
-
-.btn-join-now {
-    background: #6366f1;
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.marknic-logo {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 25px;
-    letter-spacing: -1px;
-    text-align: center;
-}
-
-/* Media query para PC (Pantallas grandes) */
-@media (min-width: 768px) {
-    .marknic-logo {
-        font-size: 3.5rem;
-    }
-}
-
-.text-white {
-    color: #f2f3f5;
-}
-
-.text-purple {
-    color: #6366f1;
-}
-
-/* Contenedor-usuario FIJO */
-.Contenedor-usuario {
-    display: flex;
-    position: fixed;
-    justify-content: right;
-    /* Logo a la izquierda, icono-Usuario a la derecha */
-    align-items: center;
-    padding: 10px 15px;
-    /* El 5% evita que se arrincone en pantallas grandes */
-    background-color: #0F172A;
-    border-bottom: 1px solid #0F172A;
-    top: 0;
-    left: 0;
-    right: 0;
-}
-
-.logo {
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: #1f2937;
-}
-
-.logo span {
-    color: var(--primary);
-}
-
-/* Contenedor principal */
-.user-menu-container {
-    position: relative;
-    /* Importante para que la ventana se alinee aquí */
-    display: flex;
-    align-items: center;
-}
-
-/* ICONO USUARIO */
-.navbar-principal {
-    display: flex;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 15px 50px;
-    background: white;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.categories-grid{
-    display: flex;            /* Activa el modo flexbox */
-    justify-content: center;  /* Centra los botones horizontalmente */
-    flex-wrap: wrap;         /* Si no caben, saltan a la siguiente línea */
-    gap: 15px;               /* Espacio entre los botones */
-    width: 100%;             /* Asegura que ocupe todo el ancho disponible */
-    margin: 20px 0;          /* Espacio arriba y abajo si lo necesitas */
-}
-.categories-grid .cat-item {
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content:center;
-    gap: 10px;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    color: white;
-    transition: all 0.3s ease;
-    margin-bottom: 5px;
-}
-
-/* Colores  */
-.categories-grid .cat-item.it { background-color: #2e7d32; }
-.categories-grid .cat-item.pasante { background-color: #455a64; }
-.categories-grid .cat-item.electrica { background-color: #2563eb; }
-.categories-grid .cat-item.ventas { background-color: #6366f1; }
-
-/* Efecto visual al pasar el mouse */
-.categories-grid .cat-item:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-/* Estilo del circulo de la personita */
-.user-icon {
-    width: 45px;
-    /* Ajuste leve para balancear el header */
-    height: 45px;
-    background-color: #f0f2f5;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #8b5cf6;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.user-icon:hover {
-    background-color: #0e0e0e;
-}
-
-/* LA VENTANITA */
-.dropdown-window {
-    display: none;
-    position: absolute;
-    top: 55px;
-    right: 0;
-    width: 280px;
-    max-width: 90vw;
-    padding: 20px;
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    border: 1px solid #e2e8f0;
-}
-
-.dropdown-window::before {
-    content: "";
-    position: absolute;
-    top: -20px;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: transparent;
-}
-
-.main-header {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 15px 40px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    position: fixed;
-    z-index: 100;
-}
-
-/* MOSTRAR AL PASAR EL MOUSE */
-.user-menu-container:hover .dropdown-window {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    animation: fadeInSlide 0.2s ease forwards;
-}
-
-.dropdown-header {
-    font-size: 0.9rem;
-    color: #444;
-    text-align: center;
-    margin-bottom: 15px;
-    line-height: 1.4;
-}
-
-.btn-ingresar,
-.btn-registrar {
-    width: 100%;
-    padding: 12px;
-    border-radius: 25px;
-    background-color: #ffffff;
-    color: #0d3876;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    transition: all 0.2s;
-    border: 2px solid #0d3876;
-    /* Restaurado borde original */
-}
-
-.btn-registrar {
-    border-color: #147904;
-    color: #147904;
-}
-
-.btn-registrar:hover {
-    background-color: #147904;
-    /* Ajuste para que se vea la interacción */
-    color: #ffffff;
-}
-
-.divider {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 15px 0;
-}
-
-.dropdown-list {
-    list-style: none;
-}
-
-.dropdown-list li {
-    padding: 12px 0;
-    color: #555;
-    font-size: 0.95rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: color 0.3s;
-}
-
-.dropdown-list li i {
-    font-size: 1.2rem;
-    color: #64748b;
-    width: 25px;
-    text-align: center;
-}
-
-.dropdown-list li:hover {
-    color: #8b5cf6;
-}
-
-@keyframes fadeInSlide {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.search-container {
-    display: flex;
-    gap: 10px;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0 15px;
-}
-
-#searchInput {
-    flex: 1;
-    padding: 12px 20px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    outline: none;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-#searchInput:focus {
-    border-color: #147904; /* El azul cian de tu nuevo logo */
-    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
-}
-
-.btn-search {
-    padding: 12px 25px;
-    background: #147904; /* verde oscuro moderno */
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.btn-search:hover {
-    background: #1e293b;
-    transform: translateY(-2px);
-}
-
-/* BUSCADOR Y FILTROS */
-.search-section {
-   background: var(--white);
-    padding: 20px;
-    border-radius: 0 0 20px 20px;
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    position: relative; /* Necesario para que z-index funcione */
-    z-index: 50; /* Suficiente para estar sobre el dashboard, pero bajo el navbar */
-}
-
-.search-box {
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-}
-
-.search-box i {
-    color: var(--gray-text);
-    margin-right: 10px;
-}
-
-.search-box input {
-    border: none;
-    background: transparent;
-    width: 100%;
-    font-size: 1rem;
-    outline: none;
-}
-
-
-/* ==========================================
-   1. CONTENEDOR DE FILTROS (Scroll Horizontal)
-   ========================================== */
-.mobile-filters {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    overflow-x: auto; /* Permite deslizar hacia los lados */
-    padding: 10px 15px;
-    width: 100%;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; /* Deslizamiento suave en iPhone */
-    flex-wrap: wrap; /* Si no caben, saltan a la siguiente línea */
-    position: relative;
-    z-index: 9999;
-
-    overflow: visible; /* Asegura que los menús desplegables no se corten */
-    overflow: visible !important; /* Refuerzo para navegadores que ignoran la primera línea */
-    overflow:visible; /* Refuerzo adicional para navegadores que ignoran las dos primeras líneas */
-}
-
-/* Ocultamos la barra de desplazamiento visual para que se vea limpio */
-.mobile-filters::-webkit-scrollbar {
-    display: none;
-}
-
-.filter-group {
-    position: relative; /* Clave para que el menú caiga debajo de su propio botón */
-    flex-shrink: 0; /* Evita que los botones se aplasten intentando caber todos */
-}
-
-/* ==========================================
-   2. LOS BOTONES (CHIPS)
-   ========================================== */
-.filter-chip {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1); /* Blanco casi transparente */
-    color: white;
-    font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 18px;
-    border-radius: 12px; /* Bordes bien redondeados */
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between ;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap; /* Impide que el texto del botón se parta en dos líneas */
-    backdrop-filter: blur(5px);
-    transition: 0.3s ease;
-}
-
-.filter-chip:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* ==========================================
-   3. LOS MENÚS DESPLEGABLES (EFECTO CRISTAL)
-   ========================================== */
-.filter-dropdown {
-    display: none; /* Tu JavaScript lo cambiará a 'flex' o 'block' al tocarlo */
-    position: absolute;
-    top: 115%; /* Aparece justo un poco por debajo del botón */
-    right: 0; /* Esto hace que el menú mida exactamente el mismo ancho que su botón */
-    left: 0;
+
+        /* ============================
+           PALETA VIAJE / TRAVEL
+           Azul cielo, coral, arena
+        ============================ */
+        :root {
+            --travel-blue:      #6366f1;
+            --travel-sky:       #f9f9f9;
+            --travel-coral:     #2a6a05;
+            --travel-sand:      #F5E6D3;
+            --travel-dark:      #0f172a;
+            --travel-white:     #FFFFFF;
+            --travel-gray:      #6B7280;
+            --travel-light-bg:  #F0F8FF;
+            --travel-card-bg:   #FFFFFF;
+            --travel-success:   #0CAA56;
+            --nav-height:       65px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--travel-dark);
+            padding-top: 70px;
+            padding-bottom: calc(var(--nav-height) + 15px);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ============================
+           TOPBAR
+        ============================ */
+        .Contenedor-usuario {
+            display: flex;
+            position: fixed;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, var(--travel-dark), #0077B6cc);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,180,216,0.2);
+            top: 0; left: 0; right: 0;
+            z-index: 100000;
+        }
+
+        .marknic-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color:#6366f1;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+        .text-white  { color: #ffffff; }
+
+        .user-menu-container { position: relative; display: flex; align-items: center; }
+        .user-icon {
+            width: 42px; height: 42px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--travel-sky);
+            cursor: pointer;
+            border: 2px solid rgba(0,180,216,0.4);
+            transition: 0.3s;
+        }
+        .user-icon:hover { background: rgba(0,180,216,0.35); }
+
+        .dropdown-window {
+            display: none;
+            position: absolute;
+            top: 55px; right: 0;
+            width: 260px; max-width: 90vw;
+            padding: 18px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(3,4,94,0.25);
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+        .user-menu-container:hover .dropdown-window { display: block; }
+
+        .dropdown-header {
+            font-size: 0.82rem;
+            color: var(--travel-gray);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .btn-ingresar {
+            width: 100%; padding: 10px;
+            background: var(--travel-blue); color: white;
+            border: none; border-radius: 10px;
+            font-weight: 700; cursor: pointer; margin-bottom: 8px;
+            transition: 0.3s;
+        }
+        .btn-ingresar:hover { background: var(--travel-dark); }
+
+        .btn-registrar {
+            width: 100%; padding: 10px;
+            background: transparent; color: var(--travel-blue);
+            border: 2px solid var(--travel-blue); border-radius: 10px;
+            font-weight: 700; cursor: pointer; margin-bottom: 12px;
+            transition: 0.3s;
+        }
+        .btn-registrar:hover { background: var(--travel-sand); }
+        .divider { border: none; border-top: 1px solid #e5e7eb; margin: 8px 0; }
+        .dropdown-list { list-style: none; }
+        .dropdown-list li {
+            padding: 10px 8px; color: #374151; font-size: 0.9rem;
+            cursor: pointer; border-radius: 8px; display: flex; align-items: center; gap: 10px;
+            transition: 0.2s;
+        }
+        .dropdown-list li:hover { background: var(--travel-light-bg); color: var(--travel-blue); }
+
+        /* ============================
+           BARRA DE BUSQUEDA
+        ============================ */
+        .search-container {
+            padding: 0 20px; /* 0 arriba/abajo, 20px a los lados */
+            width: auto; max-width: 100%;
+            display: flex;
+            gap: 10px;
+            padding: 14px 16px;
+            background: rgba(0,119,182,0.15);
+            margin: 0 0 8px 0;
+        }
+        .search-container input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid rgba(0,180,216,0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-container input::placeholder { color: rgba(255,255,255,0.45); }
+        .search-container input:focus { border-color: var(--travel-sky); background: rgba(255,255,255,0.12); }
+
+        .btn-search {
+            padding: 12px 18px;
+            background: var(--travel-coral);
+            color: white; border: none; border-radius: 12px;
+            font-weight: 700; cursor: pointer; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 6px;
+            transition: 0.3s; white-space: nowrap;
+        }
+        .btn-search:hover { background: #c9851e; transform: translateY(-1px); }
+
+        /* ============================
+           FILTROS
+        ============================ */
+        .mobile-filters {
+            display: flex;
+            gap: 8px;
+            padding: 6px 16px 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .mobile-filters::-webkit-scrollbar { display: none; }
+
+        .filter-group { position: relative; flex-shrink: 0; }
+
+        .filter-chip {
+            background: rgba(0,180,216,0.15);
+            color: var(--travel-sky);
+            font-weight: 600;
+            border: 1px solid rgba(0,180,216,0.35);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 6px;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+        .filter-chip:hover { background: rgba(0,180,216,0.3); }
+
+        .filter-dropdown {
+            display: none;
+            position: absolute;
+            top: 110%; left: 0;
+            background: rgba(3,4,94,0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,180,216,0.25);
+            border-radius: 12px;
+            padding: 12px;
+            min-width: 160px;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            flex-direction: column; gap: 8px;
+        }
+        .filter-dropdown.show-dropdown { display: flex; }
+        .filter-dropdown label {
+            display: flex; align-items: center; gap: 8px;
+            color: rgba(255,255,255,0.85); font-size: 0.85rem;
+            cursor: pointer; padding: 5px 6px; border-radius: 6px; transition: 0.2s;
+        }
+        .filter-dropdown label:hover { background: rgba(0,180,216,0.2); color: white; }
+        .filter-dropdown input { accent-color: var(--travel-sky); width: 14px; height: 14px; }
+
+        /* ============================
+           CATEGORÍAS
+        ============================ */
+        .categories-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+            padding: 8px 16px 14px;
+        }
+        .cat-item {
+            text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 7px; padding: 10px 16px;
+            border-radius: 20px; font-size: 0.82rem; font-weight: 700;
+            color: white; transition: all 0.3s;
+        }
+        .cat-item.it       { background: linear-gradient(135deg, #0077B6, #bb6fe1); }
+        .cat-item.pasante  { background: linear-gradient(135deg, #8b5cf6, #765fac); }
+        .cat-item.electrica { background: linear-gradient(135deg, #8320eb, #054a67); }
+        .cat-item.ventas   { background: linear-gradient(135deg, #0bb3e6, #01310d); }
+        .cat-item:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+
+        /* ============================
+           VACANTES (tarjetas desde DB)
+        ============================ */
+        .jobs-feed { padding: 0 14px; }
+        .section-title {
+            font-size: 0.9rem; color: rgba(255,255,255,0.5);
+            margin-bottom: 14px; font-weight: 500;
+        }
+
+        /* Las tarjetas cargadas por JS con JS inline están bien,
+           pero mejoramos las que vienen del template .job-card */
+        .job-card {
+            background: var(--travel-card-bg);
+            padding: 18px; border-radius: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(3,4,94,0.12);
+            border-left: 4px solid var(--travel-sky);
+        }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .card-header h4 { font-size: 1.05rem; color: #111827; flex: 1; padding-right: 10px; }
+        .company { color: var(--travel-blue); font-size: 0.88rem; margin-bottom: 4px; font-weight: 600; }
+        .location { color: var(--travel-gray); font-size: 0.83rem; margin-bottom: 14px; }
+        .card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid #f3f4f6; padding-top: 12px;
+        }
+        .tag { font-size: 0.73rem; color: #9ca3af; }
+
+        .btn-details {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; border: none;
+            padding: 9px 18px; border-radius: 10px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 700;
+            transition: 0.3s; box-shadow: 0 3px 10px rgba(0,119,182,0.3);
+        }
+        .btn-details:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,119,182,0.4); }
+
+        /* ============================
+           SIN RESULTADOS
+        ============================ */
+        #noResults {
+            text-align: center; padding: 30px 20px;
+            color: rgba(255,255,255,0.5); display: none;
+        }
+        #noResults img { opacity: 0.3; margin-bottom: 10px; }
+
+        /* ============================
+           NOTIFICACIÓN DE ENTREVISTA
+        ============================ */
+        .important-banner {
+            background: linear-gradient(90deg, var(--travel-dark), var(--travel-blue));
+            color: white; padding: 14px 16px;
+            border-radius: 12px; margin: 0 14px 14px;
+            box-shadow: 0 4px 15px rgba(0,119,182,0.35);
+            animation: slideIn 0.5s ease-out;
+        }
+        .banner-content {
+            display: flex; justify-content: space-between;
+            align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .btn-ver-cita {
+            background: white; color: var(--travel-blue);
+            border: none; padding: 7px 14px; border-radius: 20px;
+            font-weight: 700; cursor: pointer; font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .btn-ver-cita:hover { background: var(--travel-sand); }
+
+        /* ============================
+           MODAL ENTREVISTA
+        ============================ */
+        .modal-overlay, .lobby-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.65);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 15px;
+        }
+        .modal-card {
+            background: white; width: 95%; max-width: 440px;
+            border-radius: 20px; overflow: hidden; text-align: center;
+        }
+        .modal-header-green {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; padding: 28px; font-size: 1.1rem;
+        }
+        .modal-header-green i { font-size: 2.8rem; margin-bottom: 10px; display: block; }
+        .modal-body { padding: 20px; }
+        .modal-footer { display: flex; gap: 10px; padding: 0 20px 20px; justify-content: center; }
+        .interview-details {
+            background: var(--travel-light-bg); margin: 14px 0;
+            padding: 14px; border-radius: 12px; text-align: left;
+        }
+        .detail-item { margin: 7px 0; color: #475569; font-weight: 500; font-size: 0.9rem; }
+        .terms { color: #374151; font-size: 0.9rem; margin-top: 12px; }
+        .btn-accept {
+            background: var(--travel-success); color: white; border: none;
+            padding: 12px 22px; border-radius: 10px; font-weight: 700; cursor: pointer;
+        }
+        .btn-decline {
+            background: #ef4444; color: white; border: none;
+            padding: 12px 22px; border-radius: 10px; font-weight: 700; cursor: pointer;
+        }
+
+        /* ============================
+           LOBBY VIDEOLLAMADA
+        ============================ */
+        .lobby-container {
+            background: #1e293b; color: white; width: 100%;
+            height: 100%; min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .video-preview {
+            width: 100%; max-width: 500px; aspect-ratio: 16/9;
+            background: #000; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 16px 0; border: 2px solid var(--travel-sky);
+        }
+        .controls { display: flex; gap: 14px; margin: 10px 0; }
+        .control-btn {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: rgba(255,255,255,0.1); color: white;
+            border: 2px solid rgba(255,255,255,0.2); cursor: pointer;
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .control-btn:hover { background: rgba(255,255,255,0.2); }
+        .btn-join-now {
+            background: linear-gradient(135deg, var(--travel-blue), var(--travel-sky));
+            color: white; border: none; padding: 14px 36px;
+            border-radius: 30px; font-size: 1rem; font-weight: 700;
+            margin-top: 16px; cursor: pointer;
+        }
+
+        /* ============================
+           MIS POSTULACIONES
+        ============================ */
+        .dashboard-container {
+            padding: 0 14px 16px; color: white;
+        }
+        .dashboard-container h1 {
+            font-size: 1.15rem; font-weight: 700; margin-bottom: 12px;
+            color: rgba(255,255,255,0.9);
+        }
+        .card-postulacion {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(0,180,216,0.2);
+            border-radius: 14px; padding: 16px; margin-bottom: 12px;
+        }
+        .info-trabajo h3 { font-size: 0.95rem; color: white; }
+        .info-trabajo .empresa { font-size: 0.82rem; color: var(--travel-sky); }
+
+        .stepper {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 18px 0 4px; font-size: 0.75rem;
+        }
+        .step { text-align: center; flex: 1; color: #94a3b8; }
+        .circle {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: #334155; margin: 0 auto 4px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.75rem; color: #94a3b8;
+        }
+        .line { flex: 0.5; height: 2px; background: #334155; margin-bottom: 22px; }
+        .step.active { color: var(--travel-sky); font-weight: 700; }
+        .step.active .circle { background: var(--travel-blue); color: white; }
+        .line.active { background: var(--travel-sky); }
+        .stepcontratado { text-align: center; flex: 1; color: var(--travel-success); font-weight: 700; font-size: 0.75rem; }
+        .circlecontrat { width: 24px; height: 24px; border-radius: 50%; background: var(--travel-success); margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; color: white; }
+        .btn-step-link { background: none; border: none; padding: 0; font-family: inherit; font-size: 9px; cursor: pointer; text-decoration: underline; color: inherit; }
+
+        /* ============================
+           CARGANDO VACANTES (lista de DB)
+        ============================ */
+        #lista-vacantes .vacante-card {
+            background: white;
+            border-radius: 16px; padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(3,4,94,0.12);
+            border-left: 4px solid var(--travel-sky);
+            position: relative;
+        }
+        #lista-vacantes .vacante-titulo {
+            font-size: 1rem; font-weight: 700;
+            color: var(--travel-dark); margin-bottom: 8px;
+        }
+        #lista-vacantes .vacante-empresa {
+            display: flex; align-items: center; gap: 7px;
+            color: var(--travel-blue); font-size: 0.88rem; font-weight: 600;
+            margin-bottom: 6px;
+        }
+        #lista-vacantes .vacante-lugar {
+            display: flex; align-items: center; gap: 7px;
+            color: var(--travel-gray); font-size: 0.82rem; margin-bottom: 14px;
+        }
+        #lista-vacantes hr { border: none; border-top: 1px solid #f0f0f0; margin-bottom: 12px; }
+        #lista-vacantes .vacante-footer {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        #lista-vacantes .vacante-tag {
+            background: var(--travel-light-bg); color: var(--travel-blue);
+            font-size: 0.72rem; font-weight: 600;
+            padding: 4px 10px; border-radius: 20px;
+        }
+        #lista-vacantes .btn-ver {
+            background-color: #6366f1;
+            color: white; border: none;
+            padding: 9px 18px; border-radius: 10px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 700;
+            transition: 0.3s; 
+        }
+        #lista-vacantes .btn-ver:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,119,182,0.4); }
+
+        /* ============================
+           BARRA NAVEGACIÓN INFERIOR
+        ============================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: var(--nav-height);
+            background: linear-gradient(135deg, var(--travel-dark), #012a4a);
+            border-top: 1px solid rgba(0,180,216,0.2);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 1000;
+            padding: 0 4px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+        }
+
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 3px; padding: 6px 8px; border-radius: 12px;
+            cursor: pointer; transition: 0.25s;
+            text-decoration: none; color: rgba(255,255,255,0.45);
+            flex: 1; max-width: 75px;
+        }
+        .nav-item i { font-size: 1.2rem; transition: 0.25s; }
+        .nav-item span { font-size: 0.65rem; font-weight: 600; transition: 0.25s; }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--travel-sky);
+        }
+        .nav-item.active i {
+            filter: drop-shadow(0 0 6px var(--travel-sky));
+        }
+        .nav-item.nav-logout {
+            color: rgba(232,93,39,0.6);
+        }
+        .nav-item.nav-logout:hover {
+            color: var(--travel-coral);
+        }
+        .nav-item.nav-logout:hover i {
+            filter: drop-shadow(0 0 6px var(--travel-coral));
+        }
+
+        /* Badge activo central */
+        .nav-item.active-center {
+            background: rgba(0,180,216,0.15);
+            border: 1px solid rgba(0,180,216,0.3);
+        }
+
+        /* ============================
+           ANIMATIONS
+        ============================ */
+        @keyframes slideIn {
+            from { transform: translateY(-40px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        .vacante-card { animation: fadeUp 0.4s ease both; }
+        .vacante-card:nth-child(1) { animation-delay: 0.05s; }
+        .vacante-card:nth-child(2) { animation-delay: 0.10s; }
+        .vacante-card:nth-child(3) { animation-delay: 0.15s; }
+        .vacante-card:nth-child(4) { animation-delay: 0.20s; }
+
+        /* Skeleton loader */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 400% 100%;
+            animation: skeleton-anim 1.4s ease infinite;
+            border-radius: 10px; height: 14px; margin-bottom: 8px;
+        }
+        @keyframes skeleton-anim {
+            0%   { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Contador de resultados */
+        #resultado-count {
+            font-size: 0.82rem; color: rgba(255,255,255,0.45);
+            padding: 0 16px 10px; text-align: right;
+        }
     
-    /* El efecto transparente y elegante */
-    background: rgba(15, 23, 42, 0.85); /* Fondo oscuro transparente */
-    backdrop-filter: blur(12px); /* Desenfoca lo que está detrás */
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    
-    padding: 12px;
-    min-width: 100px; /* Ancho mínimo para que no se vea aplastado */
-    z-index: 10000; /* Asegura que flote por encima de todo lo demás */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-    
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Estilo de las opciones (labels y checkboxes) */
-.filter-dropdown label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: rgb(9, 9, 9);
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    padding: 6px;
-    transition: 0.2s;
-    border-radius: 6px;
-}
-
-.filter-dropdown label:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Damos color a los checkboxes y radios para que combinen con tu app */
-.filter-dropdown input {
-    accent-color: #8b5cf6; /* El color morado de MarkNic */
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.dashboard-container {
-    padding: 0 15px;
-    text-align: center;
-    box-shadow: 0 9px 6px -1px rgba(113, 3, 146, 0.1);
-}
-
-.status-card {
-    margin-bottom: 15px;
-    border-top: 4px solid #6366f1;
-}
-
-.stepper {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    /* Mantiene la línea en una sola fila */
-    justify-content: space-between;
-    padding: 40px 0;
-    font-size: 0.8rem;
-    overflow-x: hidden;
-}
-
-/* RESPONSIVE STEPPER */
-@media (max-width: 480px) {
-
-    .mobile-filters {
-        gap: 8px;
-        overflow-x: auto; /* En móviles muy pequeños, que se puedan deslizar */
-        justify-content: flex-start;
-    }
-
-    .filter-chip {
-        flex: 0 0 auto; /* En móvil no obligamos a que se estiren si hay scroll */
-        padding: 8px 15px;
-        font-size: 0.85rem;
-    }
-
-
-    .line {
-        flex: 0.2;
-    }
-
-    .step {
-        flex: 1;
-    }
-
-    .step span,
-    .btn-step-link {
-        font-size: 9px !important;
-        display: block;
-        line-height: 1.1;
-    }
-
-    .circle {
-        width: 20px;
-        height: 20px;
-        font-size: 10px;
-    }
-}
-
-.step {
-    text-align: center;
-    flex: 1;
-    color: #ccc;
-}
-
-.circle {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #eee;
-    margin: 0 auto 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-.line {
-    flex: 0.5;
-    height: 2px;
-    background: #eee;
-    margin-bottom: 25px;
-    /* Alineado al centro de los círculos */
-}
-
-.step.active {
-    color: #6366f1;
-    font-weight: bold;
-}
-
-.stepcontratado {
-    color: #10b981;
-    font-weight: bold;
-}
-
-.circlecontrat.active {
-    background: #147904;
-    color: white;
-}
-
-.step.active .circle {
-    background: #6366f1;
-    color: white;
-}
-
-.line.active {
-    background: #6366f1;
-}
-
-.alert-banner p {
-    font-size: 0.85rem;
-    color: var(--secondary);
-    font-weight: 500;
-}
-
-.alert-banner button {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-}
-
-/* LISTA DE EMPLEOS */
-.jobs-feed {
-    padding: 0 15px;
-}
-
-.section-title {
-    font-size: 1rem;
-    margin-bottom: 15px;
-    color: var(--gray-text);
-}
-
-.job-card {
-    background: var(--white);
-    padding: 18px;
-    border-radius: 16px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.card-header h4 {
-    font-size: 1.1rem;
-    color: #111827;
-    flex: 1;
-    padding-right: 10px;
-}
-
-.company {
-    color: var(--primary);
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.location {
-    color: var(--gray-text);
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-}
-
-.card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #f3f4f6;
-    padding-top: 12px;
-    box-shadow: 0 9px 6px -1px rgba(113, 3, 146, 0.1);
-}
-
-.tag {
-    font-size: 0.75rem;
-    color: #9ca3af;
-}
-
-.btn-details {
-    background: #147904;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
-/* BOTÓN FLOTANTE (FAB) */
-.fab-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    background: var(--primary);
-    color: white;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 900;
-}
-
-.btn-details1 {
-    background: #147904;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
-.step-button {
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.step-button:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
-    background-color: #4f46e5;
-}
-
-.step-button.active {
-    animation: pulse-blue 2s infinite;
-}
-
-@keyframes pulse-blue {
-    0% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-    }
-}
-
-/* Dropdown de filtros */
-.filter-group {
-    position: relative;
-    flex: 1;
-    display: flex;
-}
-
-.filter-dropdown {
-    display: none;
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 15px;
-    min-width: max-content;
-    margin-top: 5px;
-    position: absolute;
-    z-index: 10;
-}
-
-.filter-dropdown label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap;
-    font-size: 0.85rem;
-    cursor: pointer;
-}
-
-.show-dropdown {
-    display: block !important;
-}
-
-.btn-step-link {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
-    font-size: 9px;
-    cursor: pointer;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-    font-weight: bold;
-    color: inherit;
-}
-
-.btn-step-link:hover {
-    color: #4f46e5;
-}
-
-.step[data-status="entrevista"] .btn-step-link {
-    color: #147904;
-}
-
-.dashboard-container {
-    color: #f8f5f5;
-}
