@@ -183,7 +183,7 @@
             transition: 0.3s;
         }
         .filter-chip:hover { background: rgba(0,180,216,0.3); }
-
+P
         .filter-dropdown {
             display: none;
             position: fixed;
