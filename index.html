@@ -33,38 +33,38 @@
             <h6 class="section-title">¡Encuentra tu trabajo ideal hoy!</h6>
 
             <form class="search-form" id="formBusqueda">
-                
+
                 <div class="search-inputs">
                     <div class="input-group">
-                        <i class="fa fa-briefcase input-icon"></i>
-                        <input type="text" id="cargo" placeholder="Cargo o área" required="">
-                    </div>
+                        <i class="fa fa-briefcase input-icon"
+                            style="position: absolute; left: 14px; top: 20%; transform: translateY(-50%); color: #2e54a5; font-size: 1.1rem;"></i></i>
+                        <input type="text" id="cargo" placeholder="Cargo o área" required="" </div>
 
-                    <div style="width: 100%;">
-                        <div style="position: relative; width: 100%;">
-                            <i class="fas fa-map-marker-alt"
-                                style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #2e54a5; font-size: 1.1rem;"></i>
+                        <div style="width: 100%;">
+                            <div style="position: relative; width: 100%;">
+                                <i class="fas fa-map-marker-alt"
+                                    style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #2e54a5; font-size: 1.1rem;"></i>
 
-                            <input type="text" id="lugar" placeholder="Ciudad o Departamento (Ej: Managua)" required
-                                autocomplete="off" oninput="filtrarDepartamentos()"
-                                style="width: 100%; padding: 14px 15px 14px 40px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 0.95rem; outline: none;">
+                                <input type="text" id="lugar" placeholder="Ciudad o Departamento (Ej: Managua)" required
+                                    autocomplete="off" oninput="filtrarDepartamentos()"
+                                    style="width: 100%; padding: 14px 15px 14px 40px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 0.95rem; outline: none;">
 
-                            <ul id="sugerencias-lista"
-                                style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e2e8f0; border-radius: 8px; max-height: 180px; overflow-y: auto; z-index: 1000; list-style: none; padding: 0; margin: 5px 0 0 0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
-                            </ul>
+                                <ul id="sugerencias-lista"
+                                    style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e2e8f0; border-radius: 8px; max-height: 180px; overflow-y: auto; z-index: 1000; list-style: none; padding: 0; margin: 5px 0 0 0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+                                </ul>
+                            </div>
+
+                            <button type="button" onclick="obtenerUbicacion()"
+                                style="background: transparent; color: #64748b; border: none; padding: 5px 0; margin-top: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; width: 100%; display: flex; justify-content: flex-end; align-items: center; gap: 6px; transition: 0.3s;">
+                                <i class="fas fa-location-arrow" style="color: #2e54a5;"></i> Usar mi ubicación actual
+                            </button>
                         </div>
 
-                        <button type="button" onclick="obtenerUbicacion()"
-                            style="background: transparent; color: #64748b; border: none; padding: 5px 0; margin-top: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; width: 100%; display: flex; justify-content: flex-end; align-items: center; gap: 6px; transition: 0.3s;">
-                            <i class="fas fa-location-arrow" style="color: #2e54a5;"></i> Usar mi ubicación actual
-                        </button>
+
                     </div>
-
-
-                </div>
-                <button type="button" class="search-button" onclick="validarYEnviar()">
-                    <i class="fa fa-search"></i> Buscar empleos
-                </button>
+                    <button type="button" class="search-button" onclick="validarYEnviar()">
+                        <i class="fa fa-search"></i> Buscar empleos
+                    </button>
             </form>
 
             <div class="extra-content">
