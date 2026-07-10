@@ -34,7 +34,7 @@ html, body {
 }
 
 .world-icon {
-    max-width: 130px;
+    max-width: 100%;
     width: 130px;
     height: 130px;
     margin-bottom: 15px;
