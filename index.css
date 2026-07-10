@@ -33,13 +33,6 @@ html, body {
     position: relative;
 }
 
-.world-icon {
-    max-width: 100%;
-    width: 130px;
-    height: 130px;
-    margin-bottom: 15px;
-    z-index: 10;
-}
 
 .marknic-logo {
     font-size: 3rem;
