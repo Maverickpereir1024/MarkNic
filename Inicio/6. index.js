@@ -266,3 +266,20 @@ function buscarVacantes() {
 // Opcional: Que busque automáticamente mientras escribes
 document.getElementById('searchInput').addEventListener('keyup', buscarVacantes);
 
+
+// Cuando el candidato hace clic en "Aplicar"
+async function enviarPostulacion(idVacante, datosUsuario) {
+  const { data, error } = await supabase
+    .from('Candidato')
+    .insert([
+      { 
+        id_vacante: job_offer_id, 
+        nombre_candidato: datosUsuario.Nombre,
+        email_candidato: datosUsuario.email,
+        enlace_cv: datosUsuario.file_path,
+        estado: 'Pendiente'
+      }
+    ]);
+    
+  if (!error) alert("Postulación enviada con éxito!");
+}
